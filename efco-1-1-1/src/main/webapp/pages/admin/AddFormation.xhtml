@@ -1,0 +1,97 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui" xmlns:b="http://bootsfaces.net/ui"
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+	template="/WEB-INF/templates/adminTemp/templateAdmin.xhtml"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
+	<ui:define name="currentPageName">Ajouter formation</ui:define>
+	<ui:define name="pageContent">
+		
+		<div class="row">
+
+			<div class="col-lg-6">
+				<div class="card">
+					<div class="card-header">
+						<strong>Ajouter usitlisateur(salarié EFCO)</strong>
+					</div>
+
+
+					<div class="card">
+						<div class="card-header">
+							<strong>Salarié</strong><small></small>
+						</div>
+						<div class="card-body card-block">
+							<div class="form-group">
+								<label for="nom" class=" form-control-label">Nom</label><input
+									type="text" id="nom" placeholder="Nom" class="form-control"></input>
+							</div>
+							<div class="form-group">
+								<label for="prénom" class=" form-control-label">Prénom</label><input
+									type="text" id="prénom" placeholder="Prénom"
+									class="form-control"></input>
+							</div>
+							<div class="form-group">
+								<label for="adresse e-mail" class=" form-control-label">Adresse
+									e-mail</label><input type="text" id="adresse e-mail"
+									placeholder="adresse e-mail" class="form-control"></input>
+							</div>
+							<div class="row form-group">
+								<div class="col-8">
+									<div class="form-group">
+										<label for="age" class=" form-control-label">Age</label><input
+											type="text" id="age" placeholder="Age" class="form-control"></input>
+									</div>
+								</div>
+								<div class="col-8">
+									<div class="form-group">
+										<label for="adresse" class=" form-control-label">Adresse</label><input
+											type="text" id="adresse" placeholder="adresse"
+											class="form-control"></input>
+									</div>
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="telephone" class=" form-control-label">Numèro
+									de télèphone</label><input type="text" id="telephone"
+									placeholder="numero de telephone" class="form-control"></input>
+							</div>
+							<div class="form-group">
+								<label for="nom" class=" form-control-label">Nom
+									d'utilisateur</label><input type="text" id="nom d'utilisateur"
+									placeholder="Nom d'utilisateur" class="form-control"></input>
+							</div>
+							<div class="form-group">
+								<label for="mot de passe" class=" form-control-label">Mot
+									de passe</label><input type="text" id="mot de passe"
+									placeholder="Mot de passe" class="form-control"></input>
+							</div>
+							<div class="form-group">
+								<label for="entité" class=" form-control-label">Entité</label><input
+									type="text" id="entite" placeholder="Entité"
+									class="form-control"></input>
+							</div>
+							<div class="form-group">
+								<label for="poste" class=" form-control-label">Poste</label><input
+									type="text" id="poste" placeholder="Poste" class="form-control"></input>
+							</div>
+
+						</div>
+					</div>
+
+
+				</div>
+
+			</div>
+		</div>
+
+
+	</ui:define>
+
+
+</ui:composition>
+

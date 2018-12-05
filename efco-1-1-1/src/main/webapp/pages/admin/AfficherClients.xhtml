@@ -1,0 +1,393 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui" xmlns:b="http://bootsfaces.net/ui"
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:th="http://www.thymeleaf.org"
+	template="/WEB-INF/templates/adminTemp/templateAdmin.xhtml">
+
+	<ui:define name="currentPageName">Clients</ui:define>
+	<ui:define name="pageContent">
+
+		<div class="modal" id="add_client_modal" tabindex="-1" role="dialog">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title">Ajouter un client</h5>
+						<button type="button" class="close" data-dismiss="modal"
+							aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+
+						<form action="#{request.contextPath}/admin/add_client"
+							method="post" enctype="multipart/form-data">
+							<input type="hidden" name="${_csrf.parameterName}"
+								value="${_csrf.token}" />
+							<div class="form-group">
+								<label for="recipient-name" class="col-form-label">Nom:</label>
+								<input type="text" name="nom" required="required" id=""
+									class="form-control" />
+							</div>
+							<div class="form-group">
+								<label for="recipient-name" class="col-form-label">Prenom:</label>
+								<input name="prenom" id="" required="required"
+									class="form-control" />
+							</div>
+							<div class="form-group">
+								<label for="recipient-name" class="col-form-label">Adresse
+									e-mail:</label> <input required="required" type="text" name="email"
+									class="form-control" />
+							</div>
+
+							<div class="form-group">
+								<label for="recipient-name" class="col-form-label">Adresse:</label>
+								<input type="text" name="adresse" required="required" id=""
+									class="form-control" />
+							</div>
+
+							<div class="form-group">
+								<label for="recipient-name" class="col-form-label">Numéro
+									de téléphone:</label> <input required="required" type="text"
+									name="num_tel" id="" class="form-control" />
+							</div>
+
+							<div class="form-group">
+								<label for="recipient-name" class="col-form-label">Mot
+									de passe </label> <input required="required" type="password"
+									name="password" id="" class="form-control" />
+							</div>
+
+
+
+							<div class="form-group">
+								<label for="recipient-name" class="col-form-label">Code
+									Postal :</label> <input type="number" name="code_postal" id=""
+									class="form-control" />
+							</div>
+
+
+							<div class="form-group">
+								<label for="recipient-name" class="col-form-label">Maison
+									mère:</label> <input type="text" name="maison_mere" id=""
+									class="form-control" />
+							</div>
+
+							<div class="form-group">
+								<label for="recipient-name" class="col-form-label">Pays
+									:</label> <input type="text" name="pays" id="" class="form-control" />
+							</div>
+
+
+							<div class="form-group">
+								<label for="recipient-name" class="col-form-label">Ville
+									:</label> <input type="text" name="ville" id="" class="form-control" />
+							</div>
+
+							<div class="form-group">
+								<label for="recipient-name" class="col-form-label">Siret
+									:</label> <input type="number" name="siret" id="" class="form-control" />
+							</div>
+
+
+							<div class="form-group">
+								<label for="recipient-name" class="col-form-label">Siren
+									:</label> <input type="number" name="siren" id="" class="form-control" />
+							</div>
+
+							<div class="form-group">
+								<label for="recipient-name" class="col-form-label">RCS :</label>
+								<input type="number" name="rcs_rm" id="" class="form-control" />
+							</div>
+
+
+							<div class="form-group a">
+								<label for="recipient-name" class="col-form-label">Assujetti
+									Tva :</label> <select name="assujetti_tva" id="" class="form-control">
+									<option selected="selected" value="1">Vrai</option>
+									<option value="0">Faux</option>
+								</select>
+							</div>
+
+							<div class="form-group">
+								<label for="recipient-name" class="col-form-label">Type
+									Tier :</label> <input type="text" name="type_tier" id=""
+									class="form-control" />
+							</div>
+
+
+							<div class="form-group">
+								<label for="recipient-name" class="col-form-label">Forme
+									Juridique :</label> <input type="text" name="forme_juridique" id=""
+									class="form-control" />
+							</div>
+
+							<div class="form-group">
+								<label for="recipient-name" class="col-form-label">Numéro
+									Carte bancaire :</label> <input type="number" name="num_carte_bancaire"
+									id="" class="form-control" />
+							</div>
+
+							<button type="submit" class="btn btn-outline-primary">Enregistrer
+							</button>
+						</form>
+					</div>
+
+				</div>
+			</div>
+		</div>
+
+		<div class="modal" id="edit_client_modal" tabindex="-1" role="dialog">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title">Modifier</h5>
+						<button type="button" class="close" data-dismiss="modal"
+							aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<form action="#{request.contextPath}/admin/client/edit"
+							method="post" enctype="multipart/form-data">
+							<input type="hidden" name="${_csrf.parameterName}"
+								value="${_csrf.token}" />
+							<div class="form-group">
+								<label for="recipient-name" class="col-form-label">Nom:</label>
+								<input type="text" name="nom" id="nom_user_to_edit"
+									class="form-control" />
+							</div>
+							<div class="form-group">
+								<label for="recipient-name" class="col-form-label">Prénom:</label>
+								<input name="prenom" id="prenom_user_to_edit"
+									class="form-control" />
+							</div>
+							<div class="form-group">
+								<label for="recipient-name" class="col-form-label">Adresse
+									e-mail:</label> <input type="text" name="email" id="email_user_to_edit"
+									class="form-control" />
+							</div>
+
+							<div class="form-group">
+								<label for="recipient-name" class="col-form-label">Adresse:</label>
+								<input type="text" name="adresse" id="adresse_user_to_edit"
+									class="form-control" />
+							</div>
+
+							<div class="form-group">
+								<label for="recipient-name" class="col-form-label">Num
+									tel:</label> <input type="text" name="num_tel"
+									id="num_tel_user_to_edit" class="form-control" />
+							</div>
+
+
+							<div class="form-group">
+								<label for="recipient-name" class="col-form-label">Mot
+									de passe </label> <input type="password" name="password" id=""
+									class="form-control" />
+							</div>
+
+
+							<div class="form-group">
+								<label for="recipient-name" class="col-form-label">Code
+									Postal :</label> <input type="number" name="code_postal"
+									id="code_postalr_to_edit" class="form-control" />
+							</div>
+
+
+							<div class="form-group">
+								<label for="recipient-name" class="col-form-label">Maison
+									mére:</label> <input type="text" name="maison_mere"
+									id="maison_mere_client_to_edit" class="form-control" />
+							</div>
+
+							<div class="form-group">
+								<label for="recipient-name" class="col-form-label">Pays
+									:</label> <input type="text" name="pays" id="pays_client_to_edit"
+									class="form-control" />
+							</div>
+
+
+							<div class="form-group">
+								<label for="recipient-name" class="col-form-label">Ville
+									:</label> <input type="text" name="ville" id="ville_client_to_edit"
+									class="form-control" />
+							</div>
+
+							<div class="form-group">
+								<label for="recipient-name" class="col-form-label">Siret
+									:</label> <input type="number" name="siret" id="siret_client_to_edit"
+									class="form-control" />
+							</div>
+
+
+							<div class="form-group">
+								<label for="recipient-name" class="col-form-label">Siren
+									:</label> <input type="number" name="siren" id="siren_client_to_edit"
+									class="form-control" />
+							</div>
+
+							<div class="form-group">
+								<label for="recipient-name" class="col-form-label">RCS :</label>
+								<input type="number" name="rcs_rm" id="rcs_clien_to_edit"
+									class="form-control" />
+							</div>
+
+
+							<div class="form-group a">
+								<label for="recipient-name" class="col-form-label">Assujetti
+									Tva :</label> <select name="assujetti_tva"
+									id="assujetti_client_to_edit" class="form-control">
+									<option value="1">Vrai</option>
+									<option value="0" selected="selected">Faux</option>
+								</select>
+							</div>
+
+							<div class="form-group">
+								<label for="recipient-name" class="col-form-label">Type
+									Tier :</label> <input type="text" name="type_tier"
+									id="type_tier_client_to_edit" class="form-control" />
+							</div>
+
+
+							<div class="form-group">
+								<label for="recipient-name" class="col-form-label">Forme
+									Juridique :</label> <input type="text" name="forme_juridique"
+									id="forme_juridique_client_to_edit" class="form-control" />
+							</div>
+
+							<div class="form-group">
+								<label for="recipient-name" class="col-form-label">Numéro
+									Carte bancaire :</label> <input type="number" name="num_carte_bancaire"
+									id="num_bancaire_client_to_edit" class="form-control" />
+							</div>
+
+							<input type="hidden" name="user_id" class="user_id_to_edit"
+								value="" />
+							<button type="submit" class="btn btn-outline-primary">Enregistrer
+							</button>
+						</form>
+					</div>
+
+				</div>
+			</div>
+		</div>
+
+		<style>
+.hide_it {
+	display: none;
+}
+</style>
+
+		<table class="table table-condensed">
+			<thead>
+				<tr>
+					<th>Nom</th>
+					<th>Prénom</th>
+					<th>Adresse E-mail</th>
+					<th>Numéro De Téléphone</th>
+					<th>Adresse</th>
+					<!-- <th>Code Postal</th>
+					<th>Maison Mére</th>
+					<th>Pays</th>
+					<th>Ville</th>
+					<th>SIREN</th>
+					<th>SIRET</th>
+					<th>RCS/RM</th>
+					<th>Assujetti TVA</th>
+					<th>Effectif</th>
+					<th>Type Tier</th>
+					<th>Forme Juridique</th>
+					<th>Numero Compte Bancaire</th> -->
+					<th>Etat</th>
+					<th>Action</th>
+					<th>Info</th>
+				</tr>
+			</thead>
+			<tbody>
+				<c:forEach var="user" items="${users_clients_list}">
+					<tr>
+						<td id="nom_value_${user.getId()}">${user.getNom()}</td>
+						<td id="prenom_value_${user.getId()}">${user.getPrenom()}</td>
+						<td id="email_value_${user.getId()}">${user.getEmail()}</td>
+						<td id="num_tel_user_value_${user.getId()}">${user.getNum_tel()}</td>
+						<td id="adresse_user_value_${user.getId()}">${user.getAdresse()}</td>
+						<td class="hide_it" id="code_postal_client_value_${user.getId()}">${user.getClient().getCodePostal()}</td>
+						<td class="hide_it" id="maison_mere_client_value_${user.getId()}">${user.getClient().getPays()}</td>
+						
+						<td class="hide_it" id="pays_client_value_${user.getId()}">${user.getClient().getPays()}</td>
+						<td class="hide_it" id="ville_client_value_${user.getId()}">${user.getClient().getVille()}</td>
+						<td class="hide_it" id="siren_client_value_${user.getId()}">${user.getClient().getSiren()}</td>
+						<td class="hide_it" id="siret_client_value_${user.getId()}">${user.getClient().getSiret()}</td>
+						<td class="hide_it" id="rcs_client_value_${user.getId()}">${user.getClient().getRcs_rm()}</td>
+						<td class="hide_it" id="assujetti_client_value_${user.getId()}">${user.getClient().isAssujetti_TVA()}</td>
+						<td class="hide_it" id="type_tier_client_value_${user.getId()}">${user.getClient().getType_tier()}</td>
+						<td class="hide_it"
+							id="forme_juridique_client_value_${user.getId()}">${user.getClient().getFormejuridique()}</td>
+							
+						<td class="hide_it"
+							id="num_carte_bancaire_client_value_${user.getId()}">${user.getClient().getNumeroCompteBanc()}</td>
+
+
+						<c:if test="${user.getStatus()==0}">
+
+							<td>Non approuvé</td>
+							<td><a
+								href="#{request.contextPath}/admin/user/verify/${user.getId()}"
+								class="btn btn-success">Valider</a> <a
+								href="#{request.contextPath}/admin/user/delete/${user.getId()}"
+								class="btn btn-danger">Annuler</a></td>
+
+						</c:if>
+
+						
+
+						<c:if test="${user.getStatus()==1}">
+
+							<td>Approuvé</td>
+							<td><a
+								href="#{request.contextPath}/admin/user/delete/${user.getId()}"
+								class="btn btn-outline-danger">Supprimer</a> <a href="#"
+								data-id="${user.getId()}"
+								class="btn btn-outline-warning edit_client">Modifier</a></td>
+
+						</c:if>
+
+						<c:if test="${user.getStatus()==-1}">
+							<td>Supprimer</td>
+							<td><a
+								href="#{request.contextPath}/admin/user/restore/${user.getId()}"
+								class="btn btn-danger">Restauré</a> <a href="#"
+								data-id="${user.getId()}"
+								class="btn btn-outline-warning edit_client">Modifier</a></td>
+						</c:if>
+						<td><a href="#" data-id="${user.getId()}"
+							class="btn btn-outline-primary edit_client">Plus d'info</a> <a
+							href="#{request.contextPath}/admin/stag_list/user/${user.getId()}"
+							class="btn btn-outline-primary">Stagiaires</a></td>
+
+					</tr>
+				</c:forEach>
+			</tbody>
+		</table>
+		<div class="col-sm-12">
+			<button data-toggle="modal" class="btn btn-outline-success"
+				data-target="#add_client_modal">Ajouter</button>
+		</div>
+		<!-- <div class="card-footer">
+			<button type="submit" class="btn btn-primary btn-sm">
+				<i class="fa fa-dot-circle-o"></i> Modifier
+			</button>
+			<button type="reset" class="btn btn-danger btn-sm">
+				<i class="fa fa-ban"></i> Annuler
+			</button>
+		</div>-->
+
+
+	</ui:define>
+</ui:composition>

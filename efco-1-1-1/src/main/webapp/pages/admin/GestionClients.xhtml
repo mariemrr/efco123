@@ -1,0 +1,89 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui" xmlns:b="http://bootsfaces.net/ui"
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+	template="/WEB-INF/templates/adminTemp/templateAdmin.xhtml"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
+	<ui:define name="currentPageName">Acceuil</ui:define>
+	<ui:define name="pageContent">
+		<div class="col-sm-12">
+			<div class="alert  alert-success alert-dismissible fade show"
+				role="alert">
+				<span class="badge badge-pill badge-success">Success</span>
+				${result}
+				<button type="button" class="close" data-dismiss="alert"
+					aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+		</div>
+
+		<table class="table table-condensed">
+			<thead>
+				<tr>
+					<th>Nom Client</th>
+					<th>Adresse E-mail</th>
+					<th>Numéro De Téléphone</th>
+					<th>Adresse</th>
+					<!-- 	<th>SIREN</th>
+					<th>SIRET</th>
+					<th>RCS/RM</th>
+					<th>Assujetti TVA</th>
+					<th>Effectif</th>
+					<th>Type Tier</th>
+					<th>Assujetti TVA</th>
+					<th>Forme Juridique</th>
+					<th>Numero Compte Bancaire</th> -->
+					<th>Status</th>
+					<th>Action</th>
+				</tr>
+			</thead>
+			<tbody>
+				<c:forEach var="userItem" items="${users}">
+					<tr>
+						<td>${userItem.getNom()} ${userItem.getPrenom()}</td>
+						<td>${userItem.getEmail()}</td>
+						<td>${userItem.getNum_tel()}</td>
+						<td>${userItem.getAdresse()}</td>
+
+						<c:if test="${userItem.getStatus()==0}">
+							<td>En attente</td>
+							<td><a
+								href="#{request.contextPath}/user/verifiy/${userItem.getId()}"
+								class="btn btn-success">Valider</a> <a
+								href="#{request.contextPath}/user/cancel/${userItem.getId()}"
+								class="btn btn-danger">Annulé</a></td>
+						</c:if>
+						<c:if test="${userItem.getStatus()==1}">
+							<td>Approuver</td>
+							<td><a
+								href="#{request.contextPath}/user/supprimer/${userItem.getId()}"
+								class="btn btn-danger">Supprimer</a></td>
+						</c:if>
+
+
+					</tr>
+				</c:forEach>
+			</tbody>
+		</table>
+		<!-- <div class="card-footer">
+			<button type="submit" class="btn btn-primary btn-sm">
+				<i class="fa fa-dot-circle-o"></i> Modifier
+			</button>
+			<button type="reset" class="btn btn-danger btn-sm">
+				<i class="fa fa-ban"></i> Annuler
+			</button>
+		</div>-->
+
+
+		<!-- /#right-panel -->
+
+	</ui:define>
+
+
+</ui:composition>

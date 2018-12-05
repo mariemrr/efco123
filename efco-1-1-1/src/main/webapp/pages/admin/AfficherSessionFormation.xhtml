@@ -1,0 +1,691 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui" xmlns:b="http://bootsfaces.net/ui"
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:th="http://www.thymeleaf.org"
+	template="/WEB-INF/templates/adminTemp/templateAdmin.xhtml">
+
+	<ui:define name="currentPageName">Session de Formation</ui:define>
+	<ui:define name="pageContent">
+
+		<style>
+.date_info {
+	font-size: 15px;
+}
+
+.erreur_salle {
+	color: red;
+	font-size: 16px;
+	margin-left: 12px;
+	margin-top: 4px;
+}
+</style>
+
+
+		<div class="modal" id="add_type_formation_modal" tabindex="-1"
+			role="dialog">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title">Ajouter</h5>
+						<br />
+						<h5 class="erreur_salle modal-title"></h5>
+						<button type="button" class="close" data-dismiss="modal"
+							aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<form id="add_formation_session"
+							action="#{request.contextPath}/admin/add_session_formation"
+							method="post" enctype="multipart/form-data">
+							<input type="hidden" name="${_csrf.parameterName}"
+								value="${_csrf.token}" />
+							<div class="row">
+								<div class="col-md-6">
+									<div class="form-group">
+										<label for="recipient-name" class="col-form-label">Titre:</label>
+										<input required="required" type="text" name="titre" id=""
+											class="form-control" />
+									</div>
+								</div>
+								<div class="col-md-6">
+									<div class="form-group">
+										<label for="recipient-name" class="col-form-label">Formateur:</label>
+										<select required="required" name="formateur_id" id=""
+											class="form-control">
+
+
+											<c:forEach var="former" items="${formersList}">
+												<option value="${former.getId()}">${forme.getNom()}
+													${former.getPrenom()}</option>
+											</c:forEach>
+
+										</select>
+									</div>
+								</div>
+							</div>
+
+							<div class="row">
+
+								<div class="col-md-12">
+									<label for="recipient-name" class="col-form-label">Lien:</label>
+									<input type="text" name="link" id="" class="form-control" />
+								</div>
+							</div>
+
+							<div class="row">
+								<div class="col-md-6">
+									<div class="form-group">
+										<label for="recipient-name" class="col-form-label">Salle:</label>
+										<select required="required" name="salle_id" id="salle_to_add"
+											class="form-control choose_salle">
+											<option selected="true" value="-1" disabled="disabled">Choisir
+												une salle</option>
+
+											<c:forEach var="salle" class="check_salle_on_add"
+												items="${salle_list}">
+
+												<c:if test="${salle.getDisponibilite()==1}">
+													<option value="${salle.getId()}">${salle.getNom()}</option>
+												</c:if>
+
+											</c:forEach>
+
+										</select>
+									</div>
+								</div>
+								<div class="col-md-6">
+									<div class="form-group">
+										<label for="recipient-name" class="col-form-label">Formation:</label>
+										<select required="required" name="formation_id" id=""
+											class="form-control">
+
+
+											<c:forEach var="formation" items="${formation_list}">
+												<option value="${formation.getId()}">${formation.getTitre()}
+												</option>
+											</c:forEach>
+
+										</select>
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<center>
+									<a href="#" data-salle-id=""
+										class="show_salle_time btn btn-info" style="margin-left: 50%;">Calendrier
+										de la salle selectionnée</a>
+								</center>
+								<c:forEach var="salle" items="${salle_list}">
+									<div
+										style="border: 2px solid black; margin-top: 4px; padding: 18px; display: none;"
+										id="salle_time_${salle.getId()}"
+										class="col-md-12 details_salle">
+										<c:if test="${salle.getSession_formations().size()==0}">
+											Salle est totalement disponbile
+										</c:if>
+										<c:if test="${salle.getSession_formations().size()!=0}">
+
+											<c:forEach var="session_formation_salle"
+												items="${salle.getSession_formations()}">
+												<c:forEach var="salle_time"
+													items="${session_formation_salle.getSession_formation_time()}">
+													<div class="row">
+														<div class="col-md-6">Date Debut :
+															${salle_time.getDate_deb()}</div>
+														<div class="col-md-6">Date Fin :
+															${salle_time.getDate_fin()}</div>
+													</div>
+												</c:forEach>
+											</c:forEach>
+										</c:if>
+									</div>
+
+								</c:forEach>
+							</div>
+							<div class="row">
+								<div class="col-md-5">
+									<div class="form-group">
+										<label for="recipient-name" class="col-form-label">Nombre
+											de stagiaires</label> <input type="number" name="nbr_stag"
+											required="required" id="" class="form-control" />
+									</div>
+								</div>
+								<div class="col-md-4">
+									<div class="form-group">
+										<label for="recipient-name" class="col-form-label">Durée
+											(en Heures)</label> <input type="number" name="duree"
+											required="required" id="duree_session_formation"
+											class="form-control" />
+									</div>
+								</div>
+								<div class="col-md-3">
+									<div class="form-group">
+										<label for="recipient-name" class="col-form-label">Heures
+											restantes</label> <input type="text" name="duree" required="required"
+											id="duree_rest_session_formation" class="form-control"
+											disabled="disabled" />
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-6">
+									<div class="form-group">
+										<label for="recipient-name" class="col-form-label">Date
+											de début:</label> <input type="date" name="date_debut" id="date_deb_"
+											required="required" placeholder="exemple : 2018-01-10"
+											class="form-control" />
+									</div>
+								</div>
+
+								<div class="col-md-6">
+									<div class="form-group">
+										<label for="recipient-name" class="col-form-label">Date
+											de fin :</label> <input type="date" name="date_fin" id="date_fin_"
+											required="required" placeholder="exemple : 2018-01-10"
+											class="form-control" />
+									</div>
+								</div>
+							</div>
+							<div class="row" id="insert_time_to_dates">
+								<div class="col-md-12">
+									<div class="col-md-6">
+										<div class="form-group">
+											<label for="recipient-name" style="font-size: 15px;"
+												class="col-form-label date_info"><span
+												id="date_deb__"></span> </label> <input type="time" min="0" max="24"
+												name="heures_deb" id="" required="required"
+												class="form-control time_deb" />
+										</div>
+									</div>
+									<div class="col-md-6">
+										<div class="form-group">
+											<label for="recipient-name" style="font-size: 15px;"
+												class="col-form-label date_info"><span
+												id="date_fin__"></span> </label> <input type="time"
+												name="heures_fin" min="0" max="24" id="" required="required"
+												class="form-control time_fin" />
+										</div>
+									</div>
+								</div>
+							</div>
+
+							<button type="submit" class="btn btn-outline-primary">Enregistrer
+							</button>
+						</form>
+					</div>
+
+				</div>
+			</div>
+		</div>
+
+
+
+		<div class="modal" id="edit_session_formation_modal" tabindex="-1"
+			role="dialog">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title">Modifier</h5>
+						<button type="button" class="close" data-dismiss="modal"
+							aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<form id="edit_formation_session"
+							action="#{request.contextPath}/admin/session_formation/edit"
+							method="post">
+							<input type="hidden" name="${_csrf.parameterName}"
+								value="${_csrf.token}" />
+							<div class="row">
+								<div class="col-md-6">
+									<div class="form-group">
+										<label for="recipient-name" class="col-form-label">Titre:</label>
+										<input type="text" name="titre"
+											id="title_session_formation_to_edit" class="form-control" />
+									</div>
+								</div>
+								<div class="col-md-6">
+									<div class="form-group">
+										<label for="recipient-name" class="col-form-label">Formateur:</label>
+										<select name="formateur_id" id="formateur_to_edit"
+											class="form-control">
+
+
+											<c:forEach var="former" items="${formersList}">
+												<option value="${former.getId()}">${forme.getNom()}
+													${former.getPrenom()}</option>
+											</c:forEach>
+
+										</select>
+									</div>
+								</div>
+							</div>
+							<div class="row">
+
+								<div class="col-md-12">
+									<label for="recipient-name" class="col-form-label">Lien:</label>
+									<input type="text" name="link"
+										id="link_session_formation_to_edit" class="form-control" />
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-6">
+									<div class="form-group">
+										<label for="recipient-name" class="col-form-label">Formation:</label>
+										<select name="formation_id" id="formation_to_edit"
+											class="form-control">
+
+
+											<c:forEach var="formation" items="${formation_list}">
+												<option value="${formation.getId()}">${formation.getTitre()}
+												</option>
+											</c:forEach>
+
+										</select>
+									</div>
+								</div>
+								<div class="col-md-6">
+									<div class="form-group">
+										<label for="recipient-name" class="col-form-label">Salle:</label>
+										<select name="salle_id" id="salle_to_edit"
+											class="form-control">
+
+
+											<c:forEach var="salle" items="${salle_list}">
+												<c:if test="${salle.getDisponibilite()==1}">
+													<option value="${salle.getId()}">${salle.getNom()}</option>
+
+												</c:if>
+											</c:forEach>
+
+										</select>
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-5">
+									<div class="form-group">
+										<label for="recipient-name" class="col-form-label">Nombre
+											de stagiaires :</label> <input type="number" name="nbr_stag"
+											required="required" id="nbr_stag_session_formation_to_edit"
+											class="form-control" />
+									</div>
+
+								</div>
+								<div class="col-md-4">
+									<div class="form-group">
+										<label for="recipient-name" class="col-form-label">Durée
+											(en Heures):</label> <input type="number" name="duree"
+											required="required" id="duree_session_formation_to_edit"
+											class="form-control" />
+									</div>
+								</div>
+								<div class="col-md-3">
+									<div class="form-group">
+										<label for="recipient-name" class="col-form-label">Heures
+											restantes</label> <input type="text" name="duree" required="required"
+											id="duree_rest_session_formation_to_edit"
+											class="form-control" disabled="disabled" />
+									</div>
+								</div>
+
+							</div>
+							<div class="row">
+
+								<div class="col-md-6">
+									<div class="form-group">
+										<label for="recipient-name" class="col-form-label">Date
+											de début:</label> <input type="date" name="date_debut"
+											id="date_debut_session_formation_to_edit" required="required"
+											class="form-control" />
+									</div>
+								</div>
+								<div class="col-md-6">
+									<div class="form-group">
+										<label for="recipient-name" class="col-form-label">Date
+											de fin :</label> <input type="date" name="date_fin"
+											id="date_fin_session_formation_to_edit" required="required"
+											class="form-control" />
+									</div>
+								</div>
+							</div>
+
+							<div class="row" id="insert_time_to_dates_to_edit"></div>
+
+
+							<input type="hidden" name="session_formation_id"
+								class="session_formation_id" />
+
+							<button type="submit" class="btn btn-outline-primary">Enregistrer
+							</button>
+						</form>
+					</div>
+
+				</div>
+			</div>
+		</div>
+
+		<table class="table table-condensed" style="font-size: 13px">
+			<thead>
+				<tr>
+					<th>Titre</th>
+					<th>Formateur</th>
+					<th>Debut</th>
+					<th>Fin</th>
+					<th>Duree(H)</th>
+					<th>Nombre de stagiaires</th>
+					<th>Salle</th>
+					<th>Etat</th>
+					<th>Action</th>
+				</tr>
+			</thead>
+			<tbody>
+				<c:forEach var="session_formation" items="${session_formation_list}">
+					<tr>
+
+						<td
+							id="value_session_formation_titre_${session_formation.getId()}">${session_formation.getTitre()}
+							<input type="hidden"
+							id="value_session_formation_heure_fin_${session_formation.getId()}"
+							value="${session_formation.getHeureFin()}" /> <input
+							type="hidden"
+							id="value_session_formation_link_${session_formation.getId()}"
+							value="${session_formation.getLink()}" /> <input type="hidden"
+							id="value_session_formation_heure_debut_${session_formation.getId()}"
+							value="${session_formation.getHeureDeb()}" /> <input
+							type="hidden"
+							id="value_session_formation_id${session_formation.getId()}"
+							value="${session_formation.getFormation().getId()}" /> <input
+							type="hidden"
+							id="value_salle_id_formation_${session_formation.getId()}"
+							value="${session_formation.getSallef().getId()}" /> <input
+							type="hidden"
+							id="value_session_formation_nbr_stag_${session_formation.getId()}"
+							value="${session_formation.getNbre_stagiaires()}" /> <input
+							type="hidden"
+							id="value_session_formation_duree_${session_formation.getId()}"
+							value="${session_formation.getDuree()}" /> <c:forEach
+								var="time_event"
+								items="${session_formation.getSession_formation_time()}">
+								<input type="hidden"
+									id="time_event_deb_${time_event.getDate_deb().toString().split(' ')[0]}"
+									class="time_event_deb_${session_formation.getId()}"
+									value="${time_event.getDate_deb().toString().split(' ')[1]}" />
+								<input type="hidden"
+									id="time_event_fin_${time_event.getDate_fin().toString().split(' ')[0]}"
+									class="time_event_fin_${session_formation.getId()}"
+									value="${time_event.getDate_fin().toString().split(' ')[1]}" />
+							</c:forEach>
+						</td>
+						<td><input type="hidden"
+							id="value_session_formation_${session_formation.getId()}"
+							value="${session_formation.getFormateur().getId()}" />${session_formation.getFormateur().getNom()}</td>
+						<td
+							id="value_session_formation_date_debut_${session_formation.getId()}">${session_formation.getDate_Deb()}</td>
+						<td
+							id="value_session_formation_date_fin_${session_formation.getId()}">${session_formation.getDate_fin()}</td>
+						<td>${session_formation.getDuree()}</td>
+						<td><input type="hidden"
+							value="${session_formation.getStagiaires().size()}"
+							id="value_session_formation_size_${session_formation.getId()}" />
+							${session_formation.getStagiaires().size()} /
+							${session_formation.getNbre_stagiaires()}</td>
+
+
+						<td><input type="hidden"
+							value="${session_formation.getSallef().getId()}"
+							id="value_session_formation_salle_${session_formation.getId()}" />
+							${session_formation.getSallef().getNom()}</td>
+
+						<c:if test="${session_formation.getStatus()==1}">
+							<td>Validé</td>
+							<td><a
+								href="#{request.contextPath}/admin/session_formation/delete/${session_formation.getId()}"
+								class="btn btn-outline-danger">Supprimer</a> <a href="#"
+								data-id="${session_formation.getId()}"
+								class="btn btn-outline-primary edit_session_Formation">Modifier</a></td>
+						</c:if>
+
+					</tr>
+
+				</c:forEach>
+			</tbody>
+		</table>
+		<div class="col-sm-12">
+			<button data-toggle="modal" class="btn btn-outline-success"
+				data-target="#add_type_formation_modal">Ajouter</button>
+		</div>
+		<!-- <div class="card-footer">
+			<button type="submit" class="btn btn-primary btn-sm">
+				<i class="fa fa-dot-circle-o"></i> Modifier
+			</button>
+			<button type="reset" class="btn btn-danger btn-sm">
+				<i class="fa fa-ban"></i> Annuler
+			</button>
+		</div>-->
+		<!-- /#right-panel -->
+		<script
+			src="#{request.contextPath}/resources/adminResources/js/vendor/jquery-2.1.4.min.js"></script>
+		<script>
+			$(".edit_type_Formation").click(
+					function() {
+						$("#title_type_formation_to_edit").val(
+								$("#title_value_" + $(this).attr("data-id"))
+										.text());
+						$(".type_formation_id_to_edit").val(
+								$(this).attr("data-id"));
+						$("#edit_type_formation_modal").modal("show");
+
+					});
+			$(document).ready(
+					function() {
+						var now = new Date();
+						var today = now.getFullYear() + "-"
+								+ ('0' + (now.getMonth() + 1)).slice(-2) + "-"
+								+ ('0' + now.getDate()).slice(-2);
+
+						/*var today = now.getFullYear() + "-"
+								+ (now.getMonth() + 1) + "-" + now.getDate()*/
+
+						var days_name = new Array(7);
+						days_name[0] = "Dimanche";
+						days_name[1] = "Lundi";
+						days_name[2] = "Mardi";
+						days_name[3] = "Mercredi";
+						days_name[4] = "Jeudi";
+						days_name[5] = "Vendredi";
+						days_name[6] = "Samedi";
+
+						$("#date_deb_").val(today);
+						$("#date_fin_").val(today);
+						$("#date_deb__").text(
+								"" + days_name[now.getDay()] + " (" + today
+										+ ")");
+						$("#date_fin__").text(
+								"" + days_name[now.getDay()] + " (" + today
+										+ ")");
+
+					});
+
+			$(".choose_salle").on("change", function() {
+				if ($("#salle_to_add option:selected").val() == -1) {
+					swal({
+						title : "Erreur",
+						text : "Veuillez selectionner une salle",
+						type : "error",
+						button : "Ok",
+					});
+				}
+				$(".show_salle_time").attr("data-salle-id", this.value);
+				$(".details_salle").each(function() {
+					$(this).css('display', 'none');
+				})
+			});
+
+			$(document).on("click", ".show_salle_time", function() {
+				$("#salle_time_" + $(this).attr("data-salle-id")).show();
+			})
+
+			$("#duree_session_formation").on("change", function() {
+				$("#duree_rest_session_formation").val(this.value);
+			});
+
+			$("#duree_session_formation_to_edit").on("change", function() {
+				$("#duree_rest_session_formation_to_edit").val(this.value);
+			});
+
+			$(document).on(
+					"change",
+					".time_fin_edit",
+					function() {
+					//	alert("Times to edit : " + $(".time_fin_edit").length);
+						if (calculeDureeFromTimes($(".time_deb_edit"),
+								$(".time_fin_edit"), $(
+										"#duree_session_formation_to_edit")
+										.val(),
+								$("#duree_rest_session_formation_to_edit"))) {
+							return true;
+						}
+
+					});
+
+			$(document).on(
+					"change",
+					".time_fin",
+					function() {
+
+						if (calculeDureeFromTimes($(".time_deb"),
+								$(".time_fin"), $("#duree_session_formation")
+										.val(),
+								$("#duree_rest_session_formation"))) {
+							return true;
+						}
+
+					});
+
+			$("#add_formation_session")
+					.submit(
+							function() {
+								if ($("#salle_to_add option:selected").val() == -1) {
+									swal({
+										title : "Erreur",
+										text : "Veuillez selectionner une salle",
+										type : "error",
+										button : "Ok",
+									});
+									return false;
+								}
+
+								if (calculeDureeFromTimes($(".time_deb"),
+										$(".time_fin"), $(
+												"#duree_session_formation")
+												.val(),
+										$("#duree_rest_session_formation"))) {
+									return true;
+								} else {
+									swal({
+										title : "Erreur",
+										text : "Veuillez vérifier les temps de cette session par rapport à la durée",
+										type : "error",
+										button : "Ok",
+									});
+									return false;
+								}
+								return false;
+							});
+
+			$("#edit_formation_session")
+					.submit(
+							function() {
+								if (calculeDureeFromTimes(
+										$(".time_deb_edit"),
+										$(".time_fin_edit"),
+										$("#duree_session_formation_to_edit")
+												.val(),
+										$("#duree_rest_session_formation_to_edit"))) {
+									return true;
+								} else {
+									swal({
+										title : "Erreur",
+										text : "Veuillez vérifier les temps de cette session par rapport à la durée",
+										type : "error",
+										button : "Ok",
+									});
+									return false;
+								}
+
+							});
+			function calculeDureeFromTimes(time_start, time_end, duree,
+					duree_rest) {
+				var count_times = 0;
+				var secondsStart = 0;
+				var secondsEnd = 0;
+				time_start.each(function() {
+					var hms = $(this).val(); // your input string
+					if ($(this).val().length != 0) {
+						var a = hms.split(':'); // split it at the colons
+
+						// minutes are worth 60 seconds. Hours are worth 60 minutes.
+						secondsStart += (+a[0]) * 60 * 60 + (+a[1]) * 60;
+					}
+				});
+
+				time_end.each(function() {
+					var hms = $(this).val(); // your input string
+					if ($(this).val().length != 0) {
+						var a = hms.split(':'); // split it at the colons
+
+						// minutes are worth 60 seconds. Hours are worth 60 minutes.
+						var x = (+a[0]) * 60 * 60 + (+a[1]) * 60;
+						secondsEnd = secondsEnd + x;
+					}
+				});
+
+				var dureeSeconds = duree * 3600;
+				var dureeSelected = Math.abs(secondsStart - secondsEnd);
+				console.log("duree  :" + dureeSeconds + " seconds debut : "
+						+ secondsStart + " // seconds fin : " + secondsEnd);
+				console.log("duree selected : " + dureeSelected / 3600);
+				//	alert("hi");
+
+				if (dureeSeconds - (Math.abs(secondsStart - secondsEnd)) == 0) {
+					duree_rest.val(0);
+					return true;
+				} else {
+
+					var secondsLeft = dureeSeconds
+							- (Math.abs(secondsStart - secondsEnd));
+					duree_rest.val(secondsToTime(secondsLeft));
+
+					return false;
+				}
+			}
+
+			function secondsToTime(secs) {
+				console.log("HOOOOO : " + secs);
+				var hours = Math.floor(secs / (60 * 60));
+
+				var divisor_for_minutes = secs % (60 * 60);
+				var minutes = Math.floor(divisor_for_minutes / 60);
+
+				var divisor_for_seconds = divisor_for_minutes % 60;
+				var seconds = Math.ceil(divisor_for_seconds);
+
+				return hours + ":" + minutes;
+			}
+		</script>
+		<script
+			src="#{request.contextPath}/resources/adminResources/js/dates.js"></script>
+	</ui:define>
+
+
+</ui:composition>
+

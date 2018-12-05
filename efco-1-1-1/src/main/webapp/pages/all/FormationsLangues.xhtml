@@ -1,0 +1,105 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui" xmlns:b="http://bootsfaces.net/ui"
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+	template="/WEB-INF/templates/ClientTemp/templateClient.xhtml">
+	<ui:define name="titleName">Nos Formations</ui:define>
+	<ui:define name="pageContent">
+
+		<section class="banner_area" data-stellar-background-ratio="0.5">
+		<h2>Nos Formations en langues</h2>
+		<ol class="breadcrumb">
+			<li><a href="#{request.contextPath}/index">Acceuil</a></li>
+			<li><a href="#{request.contextPath}/formation_techniques">Formations
+					Tertiaires</a></li>
+			<li><a href="#" class="active">Formations Langues</a></li>
+		</ol>
+
+		</section>
+
+
+		<div class="tittle wow fadeInUp">
+			<h2>Nos Formations En Langue</h2>
+			<!--  <h5>Nous offrons à nos clients une variété de formations tertiaires</h5>-->
+
+
+		</div>
+		<div>
+			<section class="our_feature_area">
+			<div class="container">
+
+				<div class="feature_row row">
+					<center>
+						<h4>Aujourd'hui, nous évoluons dans un contexte fortement
+							international où la maîtrise de langues étrangères est devenue un
+							atout indéniable.</h4>
+						<h4>Afin que cet obstacle se transforme en force, EFCO
+							Formation vous propose des formations sur mesure adaptées à votre
+							niveau et à votre environnement professionnel.</h4>
+					</center>
+					<div class="">
+						<div class="subtittle"></div>
+
+
+
+
+						<div class="row" style="margin-top:34px;">
+							<div class="col-md-6">
+								<center><img
+									src="#{request.contextPath}/resources/SimpleUserResources/images/if_Italy-Flag_32247.png"
+									alt="" /></center>
+							</div>
+							<div class="col-md-6">
+								<center><img
+									src="#{request.contextPath}/resources/SimpleUserResources/images/if_Germany_44921.png"
+										alt="" width="68px"/></center>
+
+							</div>
+						</div>
+
+						<div class="row" style="margin-top:58px;">
+							<div class="col-md-4">
+									<center><img
+									src="#{request.contextPath}/resources/SimpleUserResources/images/if_United Kingdom(Great Britain)_16014.png"
+									alt="" width="71px;" /></center>
+							</div>
+							<div class="col-md-4">
+									<center><img
+									src="#{request.contextPath}/resources/SimpleUserResources/images/if_Saint-Barthelemy-Flag_32318.png"
+									alt="" /></center>
+
+							</div>
+							<div class="col-md-4">
+								<center><img
+									src="#{request.contextPath}/resources/SimpleUserResources/images/if_Spain-Flag_32338.png"
+									alt="" /></center>
+
+							</div>
+						</div>
+					</div>
+
+				</div>
+			</div>
+			</section>
+			<!-- End Our Features Area -->
+		</div>
+
+
+
+
+
+
+	</ui:define>
+	<link rel="stylesheet"
+		href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+
+</ui:composition>
+
+
+
+

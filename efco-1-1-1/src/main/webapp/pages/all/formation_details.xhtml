@@ -1,0 +1,305 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:b="http://bootsfaces.net/ui"
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+	template="/WEB-INF/templates/ClientTemp/templateClient.xhtml">
+	<ui:define name="titleName">Formation ${type_formation_detail.getTitre()} </ui:define>
+	<ui:define name="pageContent">
+
+		<section class="banner_area" data-stellar-background-ratio="0.5">
+		<h2>Nos Formations ${type_formation_detail.getTitre()}</h2>
+		<ol class="breadcrumb">
+			<li><a href="#{request.contextPath}/index">Acceuil</a></li>
+			<li><a href="#" class="active">Formations
+					${type_formation_detail.getTitre()} </a></li>
+		</ol>
+		</section>
+		<div class="tittle wow fadeInUp">
+			<h2>Nos Formations ${type_formation_detail.getTitre()}</h2>
+			<br /> <br />
+			<center>
+				<h5 style="width: 68%">${type_formation_detail.getDescription()}</h5>
+			</center>
+		</div>
+		<div>
+			<section class="our_feature_area">
+			<div class="container">
+
+				<div class="feature_row row">
+					<c:if
+						test="${type_formation_detail.getTitre().equals('Techniques')}">
+						<div class="col-md-6 feature_content">
+							<div class="subtittle"></div>
+							<div class="media">
+								<div class="media-left">
+									<a href="#"> <img
+										src="#{request.contextPath}/resources/SimpleUserResources/images/if_transport-icons-09_331654.png"
+										alt="" /> <!--   <i class="fa fa-wrench" aria-hidden="true"></i>-->
+									</a>
+								</div>
+								<div class="media-body">
+									<a href="#{request.contextPath}/formation_caces">C A C E S ®
+									</a>
+									<p>Un portail online personnalisé vous permettra
+										d’atteindre vos objectifs en conjuguant innovation, autonomie
+										et efficacité.</p>
+
+								</div>
+							</div>
+							<div class="media">
+								<div class="media-left">
+									<a href="#"> <img
+										src="#{request.contextPath}/resources/SimpleUserResources/images/Crane.png"
+										alt="" />
+									</a>
+								</div>
+								<div class="media-body">
+									<a href="#">Pont Roulant</a>
+									<p>L'employeur a l'obligation de délivrer une autorisation de conduite à ses salariés qui utilisent des ponts
+									roulants. Pour cela il doit s'assurer de leur capacité à conduire en sécurité.</p>
+									<p>Nous vous proposons une formation pratique et théorique complète avec l'évaluation des compétences</p>
+									<p>Une attestation de compétence est délivrée après réussite des test théoriques et pratiques.</p>
+								</div>
+							</div>
+							<div class="media">
+								<div class="media-left">
+									<a href="#"> <img
+										src="#{request.contextPath}/resources/SimpleUserResources/images/Plugin.png"
+										alt="" />
+
+									</a>
+								</div>
+								<div class="media-body">
+									<a href="#">Habilitation Electrique</a>
+									<p>Pour réaliser des opérations à proximité d'une installation éléctrique,le travaillur doit avoir été averti des risques via
+									une formation de préparation à l'habilitation éléctrique.</p>
+									<p> L'habilitation est la reconnaissance par l'employeur de la capacité d'une personne placée sous son autorité à accomplir
+									en toute sécurité des opérations à proximité de réseaux électriques(manutention,ménages,changer une ampoules,etc..).</p>
+									<p>L'habilitation des travailleurs s'appuie sur les dispositions du Code du travail(article R.4544-9 à R.4544-11) et sur les règles techniques
+									de la norme française NFC 18-510 de janvier 2012-Opérations sur les ouvrages et installations électriques et dans un environnement électrique-Prévention du risquesélectrique.</p>
+								<p>Durée de validité recommandée selon NF C18510:3 ans</p>
+								</div>
+							</div>
+						</div>
+						<br></br>
+						<div class="col-md-6 feature_content">
+							<br></br>
+							<div class="media">
+								<div class="media-left">
+									<a href="#"> <img
+										src="#{request.contextPath}/resources/SimpleUserResources/images/Aid1.png"
+										width="96px" alt="" />
+
+									</a>
+								</div>
+
+								<div class="media-body">
+									<a href="#{request.contextPath}/formation_securite">Sécurité</a>
+									<p>Nous fournissons des formations qui vous aiderons à</p>
+
+								</div>
+							</div>
+						</div>
+					</c:if>
+					<c:if
+						test="${type_formation_detail.getTitre().equals('Tertiaires')}">
+						<div class="col-md-6 feature_content">
+							<div class="subtittle"></div>
+							<div class="media">
+								<div class="media-left">
+									<a href="#"> <img
+										src="#{request.contextPath}/resources/SimpleUserResources/images/if_language_1608752.png"
+										alt="" /> <!--   <i class="fa fa-wrench" aria-hidden="true"></i>-->
+									</a>
+								</div>
+								<div class="media-body">
+									<a href="#{request.contextPath}/formation_langues">Langues</a>
+									<p>Nous travaillons avec des formateurs en langues.Si vous
+										voulez exceller dans une langue vous navez qu'à vous inscrire.</p>
+									<p>Nous offrons de multiples formations en
+										Anglais,Français,Italien,... tout en vous donnant l'accés à
+										une plateforme de langue.</p>
+
+								</div>
+							</div>
+							<div class="media">
+								<div class="media-left">
+									<a href="#"> <img
+										src="#{request.contextPath}/resources/SimpleUserResources/images/if_SEO_content_management_969251.png"
+										alt="" />
+									</a>
+								</div>
+								<div class="media-body">
+										<a href="#">Management</a>
+									<p>Le rôle d'un manager est essentiel dans une entreprise, être manager ne s’improvise pas. EFCO Formation vous
+                                       propose des formations sur mesure adaptées à votre niveau et à votre secteur d'activité.</p>
+								</div>
+							</div>
+							<div class="media">
+								<div class="media-left">
+									<a href="#"> <img
+										src="#{request.contextPath}/resources/SimpleUserResources/images/if_wordpress-logo_1269924.png"
+										alt="" />
+
+									</a>
+								</div>
+								<div class="media-body">
+								<a href="#">Wordpress</a>
+									<p>Formez-vous en cours vidéo sur WordPress ! Apprenez à concevoir votre site web (blog, forum, site d'information)
+									 et apprenez à utiliser toutes les facettes de ce CMS OpenSource et gratuit, omniprésent sur Internet.</p>
+								</div>
+							</div>
+						</div>
+						<br></br>
+						<div class="col-md-6 feature_content">
+							<br></br>
+							<div class="media">
+								<div class="media-left">
+									<a href="#"> <img
+										src="#{request.contextPath}/resources/SimpleUserResources/images/if_Instagram_social_media_logo_1964411.png"
+										alt="" />
+
+									</a>
+								</div>
+
+								<div class="media-body">
+									<a href="#">Réseaux Sociaux</a>
+									<p>Vous êtes sensible aux nouvelles technologies et vous avez conscience de l’importance des réseaux sociaux
+dans notre quotidien privé et professionnel, nos formations sont faites pour vous. Grâce à nous, vous vous
+adapterez à ces changements sociologiques, vous comprendrez comment les français utilisent les réseaux et
+quels sont les intérêts de ces derniers pour les entreprises.</p>
+
+								</div>
+							</div>
+
+							<div class="media">
+								<div class="media-left">
+									<a href="#"> <img
+										src="#{request.contextPath}/resources/SimpleUserResources/images/if_Excel_D_104853.png"
+										alt="" />
+
+									</a>
+								</div>
+								<div class="media-body">
+									<a href="#">Informatique</a>
+									<p>Aujourd'hui, la maîtrise des différents outils informatiques tels que le pack office complet (Word, Excel,
+Windows) est devenue un atout primordial. Pour une gestion organisée de votre entreprise, EFCO Formation
+vous propose des formations sur mesure adaptées à votre niveau et à votre secteur d'activité.</p>
+								</div>
+							</div>
+							<div class="media">
+								<div class="media-left">
+									<a href="#"> <img
+										src="#{request.contextPath}/resources/SimpleUserResources/images/if_calculator_1291736.png"
+										alt="" />
+
+									</a>
+								</div>
+								<div class="media-body">
+									<a href="#">Comptabilité</a>
+				<p>EFCO formation vous propose une formation en comptabilité qui vous permettera de piloer la fonction comptable et financière de votre entreprise </p>
+
+								</div>
+							</div>
+							<div class="media">
+								<div class="media-left">
+									<a href="#"> <img
+										src="#{request.contextPath}/resources/SimpleUserResources/images/if_optimi-01-01_287097.png"
+										alt="" />
+
+									</a>
+								</div>
+								<div class="media-body">
+									<a href="#">Marketing</a>
+								<p>Aujourd’hui, vouloir développer sa PME ou sa TPE reste bien l'occupation majeure de tout chef d'entreprise.
+Cette démarche est logique, puisque c'est sur la base de la croissance générée que l'entreprise deviendra
+rentable. Pour réussir cet objectif il faut mettre en place une stratégie de développement.</p>
+								</div>
+							</div>
+						</div>
+					</c:if>
+					<c:forEach var="sous_type_formation_detail"
+						items="${sous_type_formation_list}">
+						
+						
+							<c:if
+							test="${type_formation_detail.getTitre().equals('Tertiaires')}">
+								<div style="display:none;">
+								${style="margin-top: 30px; margin-bottom: 22px"}
+								</div>
+						</c:if>
+						<c:if
+							test="${type_formation_detail.getTitre().equals('Techniques')}">
+								<div style="display:none;">
+								${style="margin-top: 17px"}
+								</div>
+						</c:if>
+						<div class="col-md-6 feature_content" style="${style}">
+							<div class="media">
+								<div class="media-left">
+									<a href="#">
+						<c:if test="${type_formation_detail.getTitre().equals('Tertiaires')}">
+						<c:if
+											test="${sous_type_formation_detail.getImage()!=null}">
+											<img
+												src="#{request.contextPath}${sous_type_formation_detail.getImage()}" />
+											</c:if>
+											
+							<c:if
+											test="${sous_type_formation_detail.getImage()==null}">
+							<img
+												src="#{request.contextPath}/resources/SimpleUserResources/images/PetitLogo_2.png" />
+												</c:if>
+						
+						</c:if>
+										<c:if
+						test="${type_formation_detail.getTitre().equals('Techniques')}">
+						<c:if
+											test="${sous_type_formation_detail.getImage()==null}">
+							<img
+												src="#{request.contextPath}/resources/SimpleUserResources/images/PetitLogo_3.png" />
+												</c:if>
+						
+									<c:if test="${sous_type_formation_detail.getImage()!=null}">
+											<img
+												src="#{request.contextPath}${sous_type_formation_detail.getImage()}" />
+										</c:if> <!--   <i class="fa fa-wrench" aria-hidden="true"></i>-->
+										</c:if>
+									</a>
+								</div>
+								<div class="media-body">
+									<a href="#{request.contextPath}/formation_langues">${sous_type_formation_detail.getTitre()}</a>
+									<p>${sous_type_formation_detail.getDescription()}</p>
+								</div>
+							</div>
+						</div>
+					</c:forEach>
+
+				</div>
+			</div>
+			</section>
+			<!-- End Our Features Area -->
+		</div>
+
+
+
+
+
+
+	</ui:define>
+	<link rel="stylesheet"
+		href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+
+</ui:composition>
+
+
+
+
+

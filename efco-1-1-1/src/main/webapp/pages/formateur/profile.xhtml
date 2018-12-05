@@ -1,0 +1,285 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui" xmlns:b="http://bootsfaces.net/ui"
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:th="http://www.thymeleaf.org"
+	template="/WEB-INF/templates/ClientTemp/templateClient.xhtml">
+	<ui:define name="titleName">Mon Compte</ui:define>
+	<ui:define name="pageContent">
+		<c:if test="${ not empty errors}">
+
+			<script>
+				swal({
+					title : "Erreur",
+					text : "${errors}",
+					type : "error",
+					button : "Ok",
+				});
+				//	swal("", "${signup_is_done}");
+			</script>
+
+		</c:if>
+		<c:if test="${ not empty success}">
+
+			<script>
+				swal({
+					title : "Félicitations",
+					text : "${success}",
+					type : "success",
+					button : "Ok",
+				});
+				//	swal("", "${signup_is_done}");
+			</script>
+
+		</c:if>
+		<div class="tittle wow fadeInUp">
+			<h2>Mon compte</h2>
+		</div>
+
+		<ul class="nav nav-tabs">
+			<li class="active"><a data-toggle="tab" href="#setting">Paramétres</a></li>
+			<li><a data-toggle="tab" href="#formations">Mes formations</a></li>
+			<li><a data-toggle="tab" href="#stagiaires">Mes stagiaires</a></li>
+		</ul>
+
+		<div class="tab-content" style="padding: 62px">
+			<div id="setting" class="tab-pane fade in active">
+				<h3>Paramétres</h3>
+
+				<form class="form_edit_user"
+					action="#{request.contextPath}/formateur/profile/edit"
+					style="height: 938px;" method="post">
+
+					<div class="form-group">
+						<label class="control-label col-sm-2" for="text">Nom :</label>
+						<div class="col-sm-10">
+							<p class="form-control-static">
+								<input type="text" class="form-control" name="nom"
+									value="${user.getNom()}" />
+							</p>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label class="control-label col-sm-2" for="text">Prénom :</label>
+						<div class="col-sm-10">
+							<p class="form-control-static">
+								<input type="text" class="form-control" name="prenom"
+									value="${user.getPrenom()}" />
+							</p>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label class="control-label col-sm-2" for="email">Adresse
+							E-mail:</label>
+						<div class="col-sm-10">
+							<p class="form-control-static">
+								<input type="email" class="form-control input_user" name="email"
+									value="${user.getEmail()}" />
+							</p>
+						</div>
+
+					</div>
+
+					<div class="form-group">
+						<label class="control-label col-sm-2" for="numero">Numéro
+							De Téléphone:</label>
+						<div class="col-sm-10">
+							<p class="form-control-static">
+								<input type="number" class="form-control input_user"
+									name="num_tel" value="${user.getNum_tel()}" />
+							</p>
+						</div>
+					</div>
+
+
+					<div class="form-group">
+						<label class="control-label col-sm-2" for="text">Adresse:</label>
+						<div class="col-sm-10">
+							<p class="form-control-static">
+								<input type="text" class="form-control input_user"
+									name="adresse" value="${user.getAdresse()}" />
+							</p>
+						</div>
+					</div>
+
+
+					<div class="form-group">
+						<label class="control-label col-sm-2" for="text">Mot de
+							passe :</label>
+						<div class="col-sm-10">
+							<p class="form-control-static">
+								<input type="password" class="form-control input_user"
+									name="password" value="${user.getPassword()}" />
+							</p>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label class="control-label col-sm-2" for="text"> </label>
+						<div class="col-sm-10">
+							<p class="form-control-static">
+								<button type="submit" id=""
+									class="btn btn-outline-warning btn_action">Modifier</button>
+							</p>
+
+						</div>
+					</div>
+
+				</form>
+
+			</div>
+
+
+
+			<script
+				src="https://fullcalendar.io/js/fullcalendar-3.9.0/lib/moment.min.js"></script>
+			<script
+				src="https://fullcalendar.io/js/fullcalendar-3.9.0/fullcalendar.min.js"></script>
+			<script
+				src="https://fullcalendar.io/js/fullcalendar-3.9.0/locale-all.js"></script>
+
+			<div id="formations" class="tab-pane fade">
+
+
+				<h3>Liste de mes formations</h3>
+				<div id="calendar"></div>
+				<style>
+.popover {
+	white-space: pre-wrap;
+}
+</style>
+				<script>
+
+$(document).ready(function() {
+
+var today = moment().day();
+	$('#calendar').fullCalendar({
+		header : {
+			left : 'prev,next today',
+			center : 'title',
+			right : 'month,agendaWeek,agendaDay'
+		},
+		firstDay: today ,
+		  locale: 'fr',
+		editable : false,
+		   events: ${events},
+		   eventRender: function(event, element) {
+			   var dateStart = new Date(event.formation_date_debut);
+				var dateEnd = new Date(event.formation_date_fin);
+				
+			   element.popover({
+			        title: event.title,
+			        content: '<font color="#f0ad4e">Description :</font> '+event.description+'\n<font color="#f0ad4e">Nombre de place restantes </font> '+event.free_stagiare_number+'\n<font color="#f0ad4e">Durée :</font> '+event.duree+' Heures\n<font color="#f0ad4e">Date debut : </font>'+dateStart.getFullYear()+'-'+(dateStart.getMonth()+1)+'-'+dateStart.getDate()+'\n<font color="#f0ad4e">Date fin :</font>'+dateEnd.getFullYear()+'-'+(dateEnd.getMonth()+1)+'-'+dateEnd.getDate()+'\n<font color="#f0ad4e">Lieu :</font>'+event.adresse+', '+event.localisation+', '+event.salle,
+					  trigger: 'hover',
+					  html: true,
+			        placement: 'top',
+			        container: 'body'
+			      });
+			   element.css({'background-color':event.color,'border-color': event.color});
+				  },
+		   
+			  viewRender: function( view, element ) {
+				    // Drop the second param ('day') if you want to be more specific
+				    if(moment().isAfter(view.intervalStart, 'day')) {
+				        $('.fc-prev-button').addClass('fc-state-disabled');
+				    } else {
+				        $('.fc-prev-button').removeClass('fc-state-disabled');
+				    }
+				},	
+				 eventClick: function(calEvent, jsEvent, view) {
+				       // window.location = "http://www.domain.com?start=" + calEvent.start;
+				//alert(calEvent.id);
+				$("#session_formation_signup_id").val(calEvent.id);
+				$("#title_session_formation_value").text(calEvent.title);
+				$("#description_session_formation_to_sign_up").text(calEvent.description);
+				
+				$('#salle_session_formation_to_sign_up').val(calEvent.adresse+", "+calEvent.salle);
+				$("#sign_up_on_formation_session").modal("show");
+				    }	
+			 // disableDragging: true
+	});
+});
+</script>
+
+				<!-- <table class="table">
+					<thead>
+						<th>Titre</th>
+						<th>Description</th>
+						<th>Image</th>
+
+						<th>Nombre d'heures</th>
+						<th>Date debut</th>
+						<th>Date fin</th>
+
+					</thead>
+					<tbody>
+						<c:forEach var="formation" items="${list_formation}">
+							<tr>
+
+								<td id="nom_value_${stag.getId()}">${formation.getTitre()}</td>
+								<td id="prenom_value_${stag.getId()}">${formation.getFormation().getDescription()}</td>
+								<td id="email_value_${stag.getId()}"><img
+									style="width: 200px;"
+									src="#{request.contextPath}${formation.getFormation().getImage()}" /></td>
+								<td id="adresse_value_${stag.getId()}">${formation.getNbre_stagiaires()}</td>
+
+								<td id="adresse_value_${stag.getId()}">${formation.getDate_Deb()}</td>
+
+								<td id="tel_value_${stag.getId()}">${formation.getDate_fin()}</td>
+
+
+							</tr>
+						</c:forEach>
+					</tbody>
+				</table>-->
+			</div>
+
+			<div id="stagiaires" class="tab-pane fade">
+				<h3>Liste de mes stagiaires</h3>
+
+				<table class="table">
+					<thead>
+						<th>Nom</th>
+						<th>Prénom</th>
+						<th>Adresse e-mail</th>
+						<th>Adresse</th>
+						<th>Numéro de téléphone</th>
+
+					</thead>
+					<tbody>
+						<c:forEach var="stag" items="${list_stag}">
+							<tr>
+
+								<td id="nom_value_${stag.getId()}">${stag.getNom()}</td>
+								<td id="prenom_value_${stag.getId()}">${stag.getPrenom()}</td>
+								<td id="email_value_${stag.getId()}">${stag.getEmail()}</td>
+								<td id="adresse_value_${stag.getId()}">${stag.getAdresse()}</td>
+								<td id="tel_value_${stag.getId()}">${stag.getNum_tel()}</td>
+
+
+							</tr>
+						</c:forEach>
+					</tbody>
+				</table>
+			</div>
+		</div>
+
+
+	</ui:define>
+	<link rel="stylesheet"
+		href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+
+</ui:composition>
+
+
+
+
+

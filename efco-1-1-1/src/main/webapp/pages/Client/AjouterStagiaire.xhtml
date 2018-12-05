@@ -1,0 +1,104 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:b="http://bootsfaces.net/ui"
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+	template="/WEB-INF/templates/ClientTemp/templateClient.xhtml">
+      <ui:define name="titleName">Gestion Stagiaires</ui:define>
+   <ui:define name="pageAjoutStagiaireClient">
+
+       <div class="tittle wow fadeInUp">
+                <h2>Ajouter Stagiaire</h2>
+            </div>
+<div>
+</div>
+   <form >
+   <div class="form-group">
+      <label for="nom">Nom:</label>
+      <input type="text" class="form-control" id="nom" placeholder="Nom..." name="nom"/>
+    </div>
+     <div class="form-group">
+      <label for="prenom">Prénom:</label>
+      <input type="text" class="form-control" id="prenom" placeholder="Prenom..." name="prenom"/>
+    </div>
+    <div class="form-group">
+      <label for="email">Adresse e-mail:</label>
+      <input type="email" class="form-control" id="email" placeholder="e-mail..." name="email"/>
+    </div>
+     <div class="form-group">
+      <label for="poste">Poste:</label>
+      <input type="text" class="form-control" id="poste" placeholder="Poste..." name="poste"/>
+    </div>
+    <div class="form-group">
+      <label for="poste">Formation:</label>
+    </div>
+   <!--  <div class="col-sm-3"> -->
+    <div class="form-group">
+      <select class="form-control">
+     <li class="dropdown-header">Langues</li>
+   <!--  <option value="Langues" class="disabled"><li>Langues</li></option> --> 
+      <option value="Allemand">Allemand</option>
+            <option value="Anglais">Anglais</option> 
+                 <option value="Espagnol">Espagnol</option>
+                       <option value="Français">Français</option>
+                             <option value="Italien">Italien</option>
+      
+     <!--   <li class="divider"></li>
+      <li class="dropdown-header">Tertiaires</li>-->
+        <option value="GestionComptabilite">Gestion-Comptabilité</option>
+        <option value="Informatique">Informatique</option>
+        <option value="Management">Management</option>
+        <option value="Marketing">Marketing</option>
+        <option value="ReseauxSociaux">Réseaux sociaux</option>
+        
+     
+    
+   <!-- <li class="divider"></li>
+      <li class="dropdown-header">Sécurité</li>  -->
+       <option value="Gestesetpostures">Gestes et postures</option>
+       <option value="Gestesetpostures">Sécurité incendie</option>
+        <option value="Gestesetpostures">SST premiers secourss</option>
+
+     <!-- <li class="divider"></li>
+      <li class="dropdown-header">Sécurité Manutention</li>  --> 
+             <option value="AIPR">AIPR</option>
+              <option value="Chariots manutention R389">Chariots manutention R389</option>
+              <option value="Engins de chantier R372 M">Engins de chantier R372 M</option>
+              <option value="HABILITATION ELECTRIQUE">HABILITATION ELECTRIQUE</option>
+              <option value="PEMP R386">PEMP R386</option>
+         <option value="PEMP R386">R423 PONT ROULANT</option>
+              
+      
+    
+   
+    </select>
+  </div>
+   
+ 
+     <div class="form-group">
+   
+    <button type="submit" class="btn btn-warning">Confirmer</button>
+    <button type="submit" class="btn btn-danger">Annuler</button>
+   
+     </div>
+  </form>
+
+                     
+                         
+                         
+                       
+                          </ui:define>
+                          <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+                          
+                          	</ui:composition>
+    
+
+	
+	
+	
+	

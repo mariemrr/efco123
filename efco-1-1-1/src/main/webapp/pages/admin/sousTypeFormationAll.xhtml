@@ -1,0 +1,211 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui" xmlns:b="http://bootsfaces.net/ui"
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:th="http://www.thymeleaf.org"
+	template="/WEB-INF/templates/adminTemp/templateAdmin.xhtml">
+
+	<ui:define name="currentPageName">Stagiaires</ui:define>
+	<ui:define name="pageContent">
+		<div class="col-sm-12">
+			<h2>Sous types des formations</h2>
+		</div>
+
+		<div class="modal" id="add_sous_type_formation_modal" tabindex="-1"
+			role="dialog">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title">Ajouter</h5>
+						<button type="button" class="close" data-dismiss="modal"
+							aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<form
+							action="#{request.contextPath}/admin/sous_type_formation/add"
+							method="post" id="add_sous_type_formation"
+							enctype="multipart/form-data">
+							<input type="hidden" name="${_csrf.parameterName}"
+								value="${_csrf.token}" />
+							<div class="form-group">
+								<label for="recipient-name" class="col-form-label">Titre
+									:</label> <input required="required" type="text" name="titre" id=""
+									class="form-control" />
+							</div>
+							<div class="form-group">
+								<label for="recipient-name" class="col-form-label">Description
+									:</label>
+								<textarea required="required" name="description" id=""
+									class="form-control"></textarea>
+							</div>
+							<div class="form-group">
+								<label for="recipient-name" class="col-form-label">Image
+									:</label> <input type="file" required="required" name="image"
+									id="email_user_to_edit" class="form-control" />
+							</div>
+
+							<div class="form-group">
+								<label for="recipient-name" class="col-form-label">Type
+									de formation :</label> <select required="required"
+									name="type_formation" id="list_type_formation"
+									class="form-control">
+									<option selected="true" value="-1" disabled="disabled">Choisir
+										un type de formation</option>
+
+									<c:forEach var="type_formation" class=""
+										items="${type_formation_list}">
+
+
+										<option value="${type_formation.getId()}">${type_formation.getTitre()}</option>
+
+
+									</c:forEach>
+								</select>
+							</div>
+
+							<button type="submit" class="btn btn-outline-successprimary">Enregistrer
+							</button>
+						</form>
+					</div>
+
+				</div>
+			</div>
+		</div>
+
+
+		<div class="modal" id="edit_sous_type_formation_modal" tabindex="-1"
+			role="dialog">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title">Modifier</h5>
+						<button type="button" class="close" data-dismiss="modal"
+							aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<form
+							action="#{request.contextPath}/admin/sous_type_formation/edit"
+							method="post" enctype="multipart/form-data">
+							<input type="hidden" name="${_csrf.parameterName}"
+								value="${_csrf.token}" />
+							<div class="form-group">
+								<label for="recipient-name" class="col-form-label">Titre
+									:</label> <input type="text" name="titre"
+									id="titre_sous_type_formation_to_edit" class="form-control" />
+							</div>
+							<div class="form-group">
+								<label for="recipient-name" class="col-form-label">Description
+									:</label>
+								<textarea name="description"
+									id="desc_sous_type_formation_to_edit" class="form-control"></textarea>
+							</div>
+							<div class="form-group">
+								<label for="recipient-name" class="col-form-label">Image
+									:</label> <input type="file" name="image" id="" class="form-control" />
+							</div>
+							
+							<div class="form-group">
+								<label for="recipient-name" class="col-form-label">Type
+									de formation :</label> <select required="required"
+									name="type_formation" id="list_type_formation_to_edit"
+									class="form-control">
+						
+									<c:forEach var="type_formation" class=""
+										items="${type_formation_list}">
+
+
+										<option value="${type_formation.getId()}">${type_formation.getTitre()}</option>
+
+
+									</c:forEach>
+								</select>
+							</div>
+
+							<input type="hidden" name="sous_type_formation_id"
+								class="sous_type_formation_id_to_edit" value="" />
+							<button type="submit" class="btn btn-outline-successprimary">Enregistrer
+							</button>
+						</form>
+					</div>
+
+				</div>
+			</div>
+		</div>
+
+
+
+		<table class="table table-condensed">
+			<thead>
+				<tr>
+					<th>Titre</th>
+					<th>Description</th>
+					<th>Image</th>
+					<th>Type Formation</th>
+					<th>Actions</th>
+				</tr>
+			</thead>
+			<tbody>
+				<c:forEach var="sous_type_formation"
+					items="${list_sous_type_formation}">
+					<tr>
+						<td id="titre_value_${sous_type_formation.getId()}">${sous_type_formation.getTitre()}</td>
+						<td id="description_value_${sous_type_formation.getId()}">${sous_type_formation.getDescription()}</td>
+
+						<td><c:if test="${sous_type_formation.getImage()==null}">
+								<img
+									src="#{request.contextPath}/resources/SimpleUserResources/images/PetitLogo.png"
+									style="width: 151px !important" />
+							</c:if> <c:if test="${sous_type_formation.getImage().length()!=null}">
+								<img
+									src="#{request.contextPath}${sous_type_formation.getImage()}"
+									style="width: 151px !important" />
+							</c:if></td>
+						<td><input type="hidden"
+							id="type_formation_value_${sous_type_formation.getId()}"
+							value="${sous_type_formation.getTypeFormaton().getId()}" />
+							${sous_type_formation.getTypeFormaton().getTitre()}</td>
+						<td><a
+							href="#{request.contextPath}/admin/sous_type_formation/delete/${sous_type_formation.getId()}"
+							class="btn btn-outline-danger">Supprimer</a> <a href="#"
+							data-id="${sous_type_formation.getId()}"
+							class="btn btn-outline-primary edit_sous_type_formation">Modifier</a></td>
+
+
+					</tr>
+				</c:forEach>
+			</tbody>
+		</table>
+
+		<div class="col-sm-12">
+			<button data-toggle="modal" class="btn btn-outline-success"
+				data-target="#add_sous_type_formation_modal">Ajouter</button>
+		</div>
+		<script>
+		$(document).ready(fucntion()
+				{
+			$("#add_sous_type_formation").submit(function() {
+				if ($("#list_type_formation option:selected").val() == -1) {
+					swal({
+						title : "Erreur",
+						text : "Veuillez selectionner un type de formation",
+						type : "error",
+						button : "Ok",
+					});
+					return false;
+				}
+				return false;
+			});
+				});
+	
+		</script>
+	</ui:define>
+</ui:composition>

@@ -1,0 +1,343 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui" xmlns:b="http://bootsfaces.net/ui"
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:th="http://www.thymeleaf.org"
+	template="/WEB-INF/templates/adminTemp/templateAdmin.xhtml">
+
+	<ui:define name="currentPageName">Planning</ui:define>
+	<ui:define name="pageContent">
+		<style>
+.loader {
+	border: 16px solid #f3f3f3; /* Light grey */
+	border-top: 16px solid #3498db; /* Blue */
+	border-radius: 50%;
+	width: 120px;
+	height: 120px;
+	animation: spin 2s linear infinite;
+}
+
+@
+keyframes spin { 0% {
+	transform: rotate(0deg);
+}
+
+100%
+{
+transform
+
+
+
+
+
+
+
+
+:rotate(360deg)
+
+
+
+
+
+
+
+
+;
+}
+#calendar {
+	padding: 30px !important;
+}
+}
+</style>
+
+
+
+
+		<div id="calendar"></div>
+
+
+		<script
+			src="https://fullcalendar.io/js/fullcalendar-3.9.0/lib/moment.min.js"></script>
+		<script
+			src="https://fullcalendar.io/js/fullcalendar-3.9.0/fullcalendar.min.js"></script>
+		<script
+			src="https://fullcalendar.io/js/fullcalendar-3.9.0/locale-all.js"></script>
+		<style>
+.popover {
+	white-space: pre-wrap;
+}
+</style>
+
+
+
+		<c:forEach var="formation" items="${sessionFormationList}">
+			<div style="display: none;"
+				id="list_stag_in_session_${formation.getId()}">
+				<c:forEach var="event_map" items="${events_list}">
+					<c:if test="${event_map.key==formation.getId()+event_map.value}">
+						<div style="margin-bottom: 5px; border-bottom: 1px solid gray"
+							class="col-md-10">
+							<div class="col-md-6">
+								<span>${users_names.get(event_map.value)}</span>
+							</div>
+							<div class="col-md-2">
+								<a style="margin-bottom: 2px;" class="btn btn-danger"
+									href="#{request.contextPath}/admin/session_stag_delete/${event_map.value}/${formation.getId()}">Supprimer</a>
+							</div>
+						</div>
+
+					</c:if>
+				</c:forEach>
+			</div>
+		</c:forEach>
+
+
+		<link
+			href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css"
+			rel="stylesheet" />
+		<script
+			src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
+
+		<div class="modal fade" id="sign_up_on_formation_session"
+			tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+			aria-hidden="true">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content" style="margin-top: 200px;">
+					<div class="modal-header">
+						<h5 class="modal-title">
+							<center>
+								<label id="title_session_formation_value"></label>
+							</center>
+						</h5>
+						<button type="button" class="close" data-dismiss="modal"
+							aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<form action="#{request.contextPath}/admin/add_stag_to_session"
+							method="post">
+
+							<div class="form-group">
+								<label
+									for="description_session_formation_to_sign_up_description"
+									class="col-form-label">Lieu :</label> <input
+									disabled="disabled" class="form-control"
+									id="salle_session_formation_to_sign_up" />
+							</div>
+							
+
+							<div class="form-group">
+								<label
+									for="description_session_formation_to_sign_up_description"
+									class="col-form-label">Description de la session:</label>
+								<textarea class="form-control" disabled="disabled"
+									id="description_session_formation_to_sign_up"></textarea>
+							</div>
+
+							<div class="form-group" style="display: -webkit-inline-box;">
+								<label
+									for="description_session_formation_to_sign_up_description"
+									class="col-form-label">Nombre de places restantes :</label> <input
+									disabled="disabled" style="width: 60px;margin-left: 12px;" class="form-control"
+									id="nbr_restantes_modal" />
+							</div>
+
+							<div class="form-group">
+								<label
+									for="description_session_formation_to_sign_up_description"
+									class="col-form-label">Ajouter des stagiaires : </label>
+								<button id="add_new_stag" type="button"
+									class="btn btn-success btn-outline">+</button>
+								<div class="new_stags" style="margin-top: 10px;"></div>
+
+							</div>
+
+							<div class="form-group">
+								<label
+									for="description_session_formation_to_sign_up_description"
+									class="col-form-label">Les stagiaires inscrits : </label>
+								<div class="row list_stag_in_session"></div>
+
+							</div>
+							<div class="form-group">
+								<label for="select_2" class="col-form-label">Selectionnez
+									des stagiaires:</label> <br /> <select multiple="multiple"
+									class="js-example-basic-single js-states form-control"
+									id="select_2" name="stag_list_to_session">
+									<c:forEach var="stag" items="${all_stag_list}">
+
+										<option value="${stag.getId()}">${stag.getUser().getNom()}
+											${stag.getUser().getPrenom()}</option>
+
+									</c:forEach>
+								</select>
+							</div>
+
+							<input type="hidden" name="session_formation_signup_id"
+								id="session_formation_signup_id" />
+							<div class="form-group">
+								<button type="submit" class="btn btn-success">Valider</button>
+							</div>
+						</form>
+					</div>
+
+				</div>
+			</div>
+		</div>
+		<style>
+.select2-container {
+	width: 100% !important;
+}
+
+.select2-selection--multiple:before {
+	content: "";
+	position: absolute;
+	right: 7px;
+	top: 42%;
+	border-top: 5px solid #888;
+	border-left: 4px solid transparent;
+	border-right: 4px solid transparent;
+}
+</style>
+		<script>
+	jQuery(document).ready(function() {
+
+
+				  jQuery('#select_2').select2({
+				        dropdownParent: jQuery('#sign_up_on_formation_session'),
+				        width: 'resolve',
+				        closeOnSelect: false
+				    });
+				  
+			var today = moment().day();
+				jQuery('#calendar').fullCalendar({
+					header : {
+						left : 'prev,next today',
+						center : 'title',
+						right : 'month,agendaWeek,agendaDay'
+					},
+					firstDay: today ,
+					  locale: 'fr',
+					editable : false,
+					 events: ${events},
+					 eventRender: function(event, element) {
+						  var dateStart = new Date(event.formation_date_debut);
+							var dateEnd = new Date(event.formation_date_fin);
+							
+					      jQuery(element).tooltip({title: event.description});  
+					      jQuery(element).popover({
+						        title: event.title,
+						        content: '<font color="#f0ad4e">Description :</font> '+event.description+'\n<font color="#f0ad4e">Nombre de places restantes </font> '+event.free_stagiare_number+
+						        '\n<font color="#f0ad4e">Durée :</font> '+event.duree+
+						        ' Heures\n<font color="#f0ad4e">Date debut : </font>'
+						        +dateStart.getFullYear()+'-'+(dateStart.getMonth()+1)+'-'+dateStart.getDate()+
+						        '\n<font color="#f0ad4e">Date fin :</font>'+dateEnd.getFullYear()+'-'+(dateEnd.getMonth()+1)+'-'+dateEnd.getDate()+
+						        '\n<font color="#f0ad4e">Lieu :</font>'+event.adresse+', '+event.localisation+', '+event.salle,
+								   trigger: 'hover',
+								   html:true,
+						        placement: 'top',
+						        container: 'body'
+						        
+						      });
+					    
+					      element.css({'background-color':event.color,'border-color': event.color});
+					    	 },
+					    	 
+					    	 
+					 viewRender: function( view, element ) {
+							  
+							 /*   if(moment().isAfter(view.intervalStart, 'day')) {
+							        $('.fc-prev-button').addClass('fc-state-disabled');
+							    } else {
+							        $('.fc-prev-button').removeClass('fc-state-disabled');
+							    }*/
+							},
+							 eventClick: function(calEvent, jsEvent, view) {
+							       // window.location = "http://www.domain.com?start=" + calEvent.start;
+							//alert(calEvent.id);
+							jQuery('#session_formation_signup_id').val(calEvent.id);
+							jQuery('#title_session_formation_value').text(calEvent.title);
+							jQuery('#description_session_formation_to_sign_up').text(calEvent.description);
+							jQuery('#nbr_restantes_modal').val(calEvent.free_stagiare_number);
+							
+							jQuery('#salle_session_formation_to_sign_up').val(calEvent.adresse+', '+calEvent.localisation+', '+calEvent.salle);
+							jQuery('.list_stag_in_session').replaceWith('<div class='col-md-12 list_stag_in_session'>'+jQuery('#list_stag_in_session_'+calEvent.id).html()+'</div>');
+						//	console.log(jQuery{my_list_.get(calEvent.id)});
+							
+							 if (calEvent.expired==1)
+								 {
+								 swal({
+										title : 'Information',
+										text : 'Session de formation expriée',
+										type : 'info',
+										button : 'Ok',
+									}); 
+							 }
+							 else
+								 {
+							
+								 jQuery('#sign_up_on_formation_session').modal('show');
+							
+						
+							    }	
+					 
+						 // disableDragging: true
+				}
+							
+				});
+				
+				function addNewStag()
+				{
+					var button_details='<div style="display:none;margin-bottom:4px;" class="col-md-12"><div class="col-md-3"> </div> <div class="col-md-3">  </div> <div class="col-md-3"><button type="button" style="margin-top:-6px" class="btn btn-info btn-outline new_stag_more_info">Détails</button></div><div class="col-md-3"><button type="button" style="margin-top:-6px" title="supprimer" class="btn btn-danger btn-outline delete_new_stag_row">Supprimer</button></div></div>';
+					
+					var name='<div class="col-md-12"  style="padding:4px;"><div class="col-md-3"><label for="new_stag_name" class="col-form-label">Nom: </label></div><div class="col-md-6"><input type="text" class="form-control" name="new_stag_name"/></div></div>';
+					var surname='<div class="col-md-12" style="padding:4px;"><div class="col-md-3"><label for="new_stag_surname" class="col-form-label">Prenom: </label></div><div class="col-md-6"><input type="text" class="form-control" name="new_stag_surname"/></div></div>';
+					var email='<div class="col-md-12"  style="padding:4px;"><div class="col-md-3"><label for="new_stag_email" class="col-form-label">Email: </label></div><div class="col-md-6"><input type="email" class="form-control" name="new_stag_email"/></div></div>';
+					var tel='<div class="col-md-12"  style="padding:4px;"><div class="col-md-3"><label for="new_stag_tel" class="col-form-label">Numéro de téléphone: </label></div><div class="col-md-6"><input type="text" class="form-control" name="new_stag_tel"/></div></div>';
+					var genre='<div class="col-md-12" style="padding:4px"><div class="col-md-3"><label for="new_stag_email" class="col-form-label">Sexe: </label></div><div class="col-md-4"><span>Monsieur</span> <input  type="radio" style="margin-left: 10px;" name="genre" checked="checked" value="Monsieur"/></div><div class="col-md-4"><span>Madame</span><input type="radio" style="margin-left: 10px;" name="genre" value="Madame"/></div></div>';
+					var password='<div class="col-md-12"  style="padding:4px;"><div class="col-md-3"><label for="new_stag_password" class="col-form-label">Mot de passe: </label></div><div class="col-md-6"><input type="password" class="form-control" name="new_stag_password"/></div></div>';
+					var bouttons='<div class="col-md-12"  style="padding:4px;"><div class="col-md-6"><button class="btn btn-outline btn-success add_new_stag_success" type="button">Ajouter</button></div><div class="col-md-6"><button type="button" class="btn btn-danger btn-outline delete_new_stag">Annuler</button></div></div>';
+					var newStagForm='<div clas="row" style="margin-top:6px;"><hr/>'+button_details+'<div class="form_new_stag">'+name+surname+email+tel+genre+password+bouttons+'</div></div>';
+						
+					jQuery('.new_stags').append(newStagForm);
+				}
+				jQuery('#add_new_stag').on('click',function()
+							{
+						addNewStag();
+							})	
+							jQuery(document).on('click','.delete_new_stag',function()
+									{	
+								
+								jQuery(this).parent().parent().parent().remove();
+									})	
+									jQuery(document).on('click','.add_new_stag_success',function()
+											{
+										jQuery(this).parent().parent().parent().slideUp();
+										var nom =jQuery(this).parent().parent().parent().children(':first').children(':first').next().children(':first').val();
+										var prenom=jQuery(this).parent().parent().parent().children(':first').next().children(':first').next().children(':first').val();
+										
+										jQuery(this).parent().parent().parent().prev().children(':first').text(nom);
+										jQuery(this).parent().parent().parent().prev().children(':first').next().text(prenom);
+										jQuery(this).parent().parent().parent().prev().show();
+											});
+				jQuery(document).on('click','.new_stag_more_info',function()
+								{
+					jQuery(this).parent().parent().next().slideDown();
+										jQuery(this).parent().parent().hide();
+								})	;
+						
+				jQuery(document).on('click','.delete_new_stag_row',function()
+								{
+								jQuery(this).parent().parent().parent().remove();
+								})
+			});
+		</script>
+
+	</ui:define>
+</ui:composition>

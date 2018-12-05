@@ -1,0 +1,341 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui" xmlns:b="http://bootsfaces.net/ui"
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	template="/WEB-INF/templates/ClientTemp/templateClient.xhtml">
+	<ui:define name="titleName">EFCO-FORMATION|Acceuil</ui:define>
+
+	<ui:define name="pageContent">
+		<link rel="stylesheet"
+			href="https://idangero.us/swiper/dist/css/swiper.css" />
+
+		<script src="https://idangero.us/swiper/dist/js/swiper.min.js"></script>
+		<style>
+.what_we_area .construction_iner .construction {
+	text-align: center;
+	max-height: 486px;
+	overflow-y: auto;
+	padding-bottom: 30px;
+	cursor: move;
+}
+
+.slider_area .slider_inner .camera_caption div h5 {
+	color: #f6b60b;
+	padding-top: 19px;
+	opacity: 0.8 !important;
+	background-color: #ffffff;
+	font: 400 24px "Roboto", sans-serif;
+}
+
+.slider_area .slider_inner .camera_caption div h3 {
+	color: #000000;
+	opacity: 0.8 !important;
+	background-color: #ffffff;
+	font: 400 30px "Roboto", sans-serif;
+	padding-top: 27px;
+}
+
+.slider_area .slider_inner .camera_caption div p {
+	padding-top: 60px;
+	max-width: initial;
+	color: #000;
+	background-color: #ffffff;
+	opacity: 0.8 !important;
+	font: 400 14px/26px "Roboto", sans-serif;
+	margin: 0 auto;
+	padding-bottom: 46px;
+}
+</style>
+		<!-- Slider area -->
+		<section class="slider_area row m0">
+		<div class="slider_inner">
+			<div
+				data-thumb="#{request.contextPath}/resources/SimpleUserResources/images/index1.jpg"
+				data-src="#{request.contextPath}/resources/SimpleUserResources/images/index1.jpg">
+				<div class="camera_caption">
+					<div class="container">
+						<h5 class="   animated">Bienvenue sur notre site</h5>
+						<h3 class="   animated" data-wow-delay="0.5s">Votre
+							partenaire de formation</h3>
+						<p class="   animated" data-wow-delay="0.8s">Nous nous
+							occupons de vous former en vous offrons des formations qui de
+							qualité et sur mesure</p>
+					</div>
+				</div>
+			</div>
+			<div
+				data-thumb="#{request.contextPath}/resources/SimpleUserResources/images/management.jpg"
+				data-src="#{request.contextPath}/resources/SimpleUserResources/images/management.jpg">
+				<div class="camera_caption">
+					<div class="container">
+						<h5 class=" wow fadeIn animated">Bienvenue sur notre site</h5>
+						<h3 class="  wow fadeIn animated" data-wow-delay="0.5s">Votre
+							partenaire de formation</h3>
+						<p class=" wow fadeIn animated" data-wow-delay="0.8s">Nous
+							nous occupons de vous former en vous offrons des formations qui
+							de qualité et sur mesure</p>
+					</div>
+				</div>
+			</div>
+			<div
+				data-thumb="#{request.contextPath}/resources/SimpleUserResources/images/index2.jpg"
+				data-src="#{request.contextPath}/resources/SimpleUserResources/images/index2.jpg">
+				<div class="camera_caption">
+					<div class="container">
+						<h5 class=" wow fadeIn  animated">Bienvenue sur notre site</h5>
+						<h3 class="  wow fadeIn animated" data-wow-delay="0.5s">Votre
+							partenaire de formation</h3>
+						<p class="  wow fadeIn animated" data-wow-delay="0.8s">Nous
+							nous occupons de vous former en vous offrons des formations qui
+							de qualité et sur mesure</p>
+					</div>
+				</div>
+			</div>
+			<div
+				data-thumb="#{request.contextPath}/resources/SimpleUserResources/images/index3.jpg"
+				data-src="#{request.contextPath}/resources/SimpleUserResources/images/index3.jpg">
+				<div class="camera_caption">
+					<div class="container">
+						<h5 class=" wow fadeIn  animated">Bienvenue sur notre site</h5>
+						<h3 class=" wow fadeIn animated" data-wow-delay="0.5s">Votre
+							partenaire de formation</h3>
+						<p class="   animated" data-wow-delay="0.8s">Nous nous
+							occupons de vous former en vous offrons des formations qui de
+							qualité et sur mesure</p>
+					</div>
+				</div>
+			</div>
+		</div>
+		</section>
+		<!-- End Slider area -->
+
+		<!-- Professional Builde -->
+		<!--  <section class="professional_builder row">
+		<div class="container">
+			<div class="row builder_all">
+				<div class="col-md-3 col-sm-6 builder">
+					<i class="fa fa-home" aria-hidden="true"></i>
+					<h4>Professional Builde</h4>
+					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
+						do eiusmod</p>
+				</div>
+				<div class="col-md-3 col-sm-6 builder">
+					<i class="fa fa-building" aria-hidden="true"></i>
+					<h4>We Deliver Quality</h4>
+					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
+						do eiusmod</p>
+				</div>
+				<div class="col-md-3 col-sm-6 builder">
+					<i class="fa fa-clock-o" aria-hidden="true"></i>
+					<h4>Always On Time</h4>
+					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
+						do eiusmod</p>
+				</div>
+				<div class="col-md-3 col-sm-6 builder">
+					<i class="fa fa-thumbs-up" aria-hidden="true"></i>
+					<h4>We Are Pasionate</h4>
+					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
+						do eiusmod</p>
+				</div>
+			</div>
+		</div>
+		</section>-->
+		<!-- End Professional Builde -->
+
+		<!-- About Us Area -->
+		<section class="about_us_area row">
+		<div class="container">
+			<div class="tittle wow fadeInUp">
+				<h2>Comment ça marche</h2>
+
+			</div>
+			<div class="row about_row">
+				<div class="who_we_area col-md-7 col-sm-6">
+
+					<div>
+						<img
+							src="#{request.contextPath}/resources/SimpleUserResources/images/CommentCaMarche.PNG"
+							alt="" />
+					</div>
+				</div>
+			</div>
+		</div>
+		</section>
+		<!-- End About Us Area -->
+		<section class="about_us_area row">
+		<div class="container">
+			<div class="tittle wow fadeInUp">
+				<h2>Formations Personnalisées</h2>
+
+			</div>
+			<br></br> <br></br>
+			<div>
+
+
+
+				<center>
+					<p>Organiser des formations sur mesure, souples et évolutives
+						pour ne plus simplement former les collaborateur d'une entreprise
+						mais les faire évoluer durablement en s'adaptant à leurs
+						pratiques, à leurs priorités et à leurs contraintes particulières.</p>
+					<p>Les formations sur mesure EFCO sont conçues pour répondre
+						aux besoins et attentes propres à votree entreprise et à votre
+						secteur d'activité.</p>
+
+				</center>
+			</div>
+		</div>
+		</section>
+		<!--  -->
+		<section class="about_us_area row">
+		<div class="container">
+			<div class="tittle wow fadeInUp">
+				<h2>Process</h2>
+
+			</div>
+			<br></br> <br></br>
+			<div>
+
+
+				<center>
+					<p>Afin d'assurer une prestation de qualité et aporter une
+						réponse adaptée, nous rencontrons le responsable formation ou
+						responsable des ressources humaines en vue de déterminer,
+						ensemble, ses attentes.</p>
+					<p>Suite à cette phase d'analyse des besoins, nous réalisons
+						une offre personnalisée, adaptée aux acteurs et au contexte
+						d'intervention.</p>
+
+				</center>
+			</div>
+		</div>
+		</section>
+		<!--  -->
+		<!-- What ew offer Area -->
+		<br></br>
+		<br></br>
+		<section class="what_we_area row">
+		<div class="container">
+			<div class="tittle wow fadeInUp">
+				<h2>Actualités</h2>
+				<h4>Nos actualités</h4>
+			</div>
+			<div class="row construction_iner">
+
+
+				<!-- Swiper -->
+				<div class="swiper-container">
+					<div class="swiper-wrapper">
+				
+						<c:forEach var="actualite" items="${acualites_session}">
+							<div class="swiper-slide">
+								<div class="col-md-12 col-sm-12 construction">
+									<div class="cns-img">
+										<img src="#{request.contextPath}${actualite.getImage()}"
+											style="height: 195px; width: 360px;" alt="" />
+									</div>
+									<div class="cns-content">
+										<i class="fa fa-keyboard-o" aria-hidden="true"></i> <a
+											href="#">${actualite.getTitre()}</a>
+										<p>${actualite.getDescription()}</p>
+									</div>
+								</div>
+							</div>
+						</c:forEach>
+					</div>
+
+				</div>
+
+
+
+			</div>
+
+		</div>
+		</section>
+		<!-- End What ew offer Area -->
+
+		<!-- Our Features Area -->
+
+
+
+		<!-- Our Featured Works Area -->
+
+		<!-- End Our Latest Blog Area -->
+
+		<!-- Our Partners Area -->
+		<section class="our_partners_area">
+		<div class="container">
+			<div class="tittle wow fadeInUp">
+				<h2>Nos Clients</h2>
+				<h4>Des entreprises qui nous font confiance</h4>
+			</div>
+			<div class="partners">
+				<div class="item">
+					<img
+						src="#{request.contextPath}/resources/SimpleUserResources/images/inicia.jpg"
+						alt="" />
+				</div>
+				<div class="item">
+					<img
+						src="#{request.contextPath}/resources/SimpleUserResources/images/amazon.png"
+						alt="" />
+				</div>
+				<div class="item">
+					<img
+						src="#{request.contextPath}/resources/SimpleUserResources/images/proman.png"
+						alt="" />
+				</div>
+				<div class="item">
+					<img
+						src="#{request.contextPath}/resources/SimpleUserResources/images/saoneor.png"
+						alt="" />
+				</div>
+				<div class="item">
+					<img
+						src="#{request.contextPath}/resources/SimpleUserResources/images/grandChalon.png"
+						alt="" />
+				</div>
+				<div class="item">
+					<img
+						src="#{request.contextPath}/resources/SimpleUserResources/images/vertech.jpg"
+						alt="" />
+				</div>
+				<div class="item">
+					<img
+						src="#{request.contextPath}/resources/SimpleUserResources/images/HYDR.png"
+						alt="" />
+				</div>
+				<div class="item">
+					<img
+						src="#{request.contextPath}/resources/SimpleUserResources/images/esat.jpg"
+						alt="" />
+				</div>
+				<div class="item">
+					<img
+						src="#{request.contextPath}/resources/SimpleUserResources/images/MOB-Logo.jpg"
+						alt="" />
+				</div>
+			</div>
+		</div>
+
+		</section>
+		<!-- End Our Partners Area -->
+		<!-- End Our Partners Area -->
+		<script>
+			var swiper = new Swiper('.swiper-container', {
+				slidesPerView : 2,
+				spaceBetween : 30,
+				pagination : {
+					el : '.swiper-pagination',
+					clickable : true,
+				},
+			});
+		</script>
+	</ui:define>
+</ui:composition>

@@ -1,0 +1,142 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui" xmlns:b="http://bootsfaces.net/ui"
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:th="http://www.thymeleaf.org"
+	template="/WEB-INF/templates/adminTemp/templateAdmin.xhtml">
+
+	<ui:define name="currentPageName">Type formation</ui:define>
+	<ui:define name="pageContent">
+
+		<div class="modal" id="add_type_formation_modal" tabindex="-1"
+			role="dialog">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title">Ajouter un type de formation</h5>
+						<button type="button" class="close" data-dismiss="modal"
+							aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<form action="#{request.contextPath}/admin/type_formation/add"
+							method="post">
+							<input type="hidden" name="${_csrf.parameterName}"
+								value="${_csrf.token}" />
+							<div class="form-group">
+								<label for="recipient-name" class="col-form-label">Titre:</label>
+								<input type="text" name="titre" required="required" class="form-control"
+									id="recipient-name" />
+							</div>
+							
+							<div class="form-group">
+								<label for="recipient-name" class="col-form-label">Description:</label>
+								<textarea name="description" required="" class="form-control"
+									id="recipient-name" ></textarea>
+							</div>
+							<button type="submit" class="btn btn-outline-primary">Enregistrer
+							</button>
+						</form>
+					</div>
+
+				</div>
+			</div>
+		</div>
+
+
+
+		<div class="modal" id="edit_type_formation_modal" tabindex="-1"
+			role="dialog">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title">Modifier</h5>
+						<button type="button" class="close" data-dismiss="modal"
+							aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<form action="#{request.contextPath}/admin/type_formation/edit"
+							method="post">
+							<input type="hidden" name="${_csrf.parameterName}"
+								value="${_csrf.token}" />
+							<div class="form-group">
+								<label for="recipient-name" class="col-form-label">Titre:</label>
+								<input type="text"  required="required" name="titre"
+									id="title_type_formation_to_edit" class="form-control" />
+							</div>
+							<div class="form-group">
+								<label for="recipient-name" class="col-form-label">Description:</label>
+								<textarea name="description" required="required" id="descrption_type_formation_to_edit"
+									class="form-control"></textarea>
+							</div>
+
+							<input type="hidden" name="type_formation_id" value=""
+								class="type_formation_id_to_edit" />
+							<button type="submit" class="btn btn-outline-primary">Enregistrer
+							</button>
+						</form>
+					</div>
+
+				</div>
+			</div>
+		</div>
+
+		<table class="table table-condensed">
+			<thead>
+				<tr>
+					<th>Titre</th>
+					<th>Description</th>
+					<th>Etat</th>
+					<th>Action</th>
+				</tr>
+			</thead>
+			<tbody>
+				<c:forEach var="typeFormation" items="${type_formation_list}">
+					<tr>
+						<td id="title_value_${typeFormation.getId()}">${typeFormation.getTitre()}</td>
+						<td id="description_value_${typeFormation.getId()}">${typeFormation.getDescription()}</td>
+
+						<c:if test="${typeFormation.getStatus()==1}">
+							<td>Validé</td>
+							<td><a
+								href="#{request.contextPath}/admin/type_formation/delete/${typeFormation.getId()}"
+								class="btn btn-outline-danger">Supprimer</a> <a href="#"
+								data-id="${typeFormation.getId()}"
+								class="btn btn-outline-warning edit_type_Formation">Modifier</a>
+								<a
+								href="#{request.contextPath}/admin/type_formation/under_type_formation/${typeFormation.getId()}"
+								class="btn btn-outline-danger">Sous type de formations</a></td>
+						</c:if>
+
+
+					</tr>
+				</c:forEach>
+			</tbody>
+		</table>
+		<!-- <div class="card-footer">
+			<button type="submit" class="btn btn-primary btn-sm">
+				<i class="fa fa-dot-circle-o"></i> Modifier
+			</button>
+			<button type="reset" class="btn btn-danger btn-sm">
+				<i class="fa fa-ban"></i> Annuler
+			</button>
+		</div>-->
+		<div class="col-sm-12">
+			<button data-toggle="modal" class="btn btn-outline-success"
+				data-target="#add_type_formation_modal">Ajouter</button>
+		</div>
+
+
+	</ui:define>
+
+
+</ui:composition>
+

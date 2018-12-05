@@ -1,0 +1,136 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui" xmlns:b="http://bootsfaces.net/ui"
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	template="/WEB-INF/templates/ClientTemp/templateClient.xhtml">
+	<ui:define name="titleName">Login</ui:define>
+	<ui:define name="pageContent">
+
+
+		<!-- Banner area -->
+		<section class="banner_area" data-stellar-background-ratio="0.5">
+		<h2>Connexion</h2>
+		<ol class="breadcrumb">
+			<li><a href="#{request.contextPath}/index">Acceuil</a></li>
+			<li><a href="#{request.contextPath}/user/login" class="active">Connexion</a></li>
+		</ol>
+		</section>
+		<!-- End Banner area -->
+
+
+		<link
+			href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800'
+			rel='stylesheet' type='text/css' />
+
+		<!-- <script type="text/javascript" src="https://cdn.jsdelivr.net/html5shiv/3.7.3/html5shiv.min.js"></script> -->
+
+
+
+		<c:if test="${ not empty signup_is_done}">
+			<script>
+				swal({
+					title : "Information",
+					text : "${signup_is_done}",
+					type : "success",
+					button : "Ok",
+				});
+				//	swal("", "${signup_is_done}");
+			</script>
+		</c:if>
+		<div class="sufee-login d-flex align-content-center flex-wrap">
+			<div class="container">
+				<div class="login-content col-md-offset-3"
+					style="width: fit-content;">
+					<div class="login-logo">
+						<a href="#"> <img class="align-content"
+							src="#{request.contextPath}/resources/adminResources/images/EFCOLOGOLogin.jpg"
+							alt="" />
+						</a>
+						<c:if test="${ not empty errors}">
+
+							<script>
+								swal({
+									title : "Erreur",
+									text : "${errors}",
+									type : "error",
+									button : "Ok",
+								});
+								//	swal("", "${signup_is_done}");
+							</script>
+
+						</c:if>
+					</div>
+					<div class="login-form">
+						<form id="loginform" th:action="@{/user/register}" method="post">
+							<div class="form-group">
+								<label>Nom</label> <input type="text" required="true"
+									class="form-control" name="nom" placeholder="Nom" />
+							</div>
+							<div class="form-group">
+								<label>Prènom</label> <input type="text" required="true"
+									class="form-control" name="prenom" placeholder="Prenom" />
+							</div>
+							<div class="form-group">
+								<label>Adresse e-mail</label> <input type="email"
+									required="true" name="email" class="form-control"
+									placeholder="Adresse e-mail" />
+							</div>
+							<div class="form-group">
+								<label>Adresse</label> <input type="text" required="true"
+									class="form-control" name="adresse" placeholder="Adresse" />
+							</div>
+							<div class="form-group">
+								<label>Numèro de télèphone</label> <input type="text"
+									required="true" name="tel" class="form-control" />
+							</div>
+
+							<div class="row form-group">
+								<div class="col col-md-3">
+									<label for="select" class=" form-control-label">Vous
+										êtes</label>
+								</div>
+								<div class="col-12 col-md-9">
+									<select name="role" required="true" id="select"
+										class="form-control">
+										<option value="0">Veuillez choisir...</option>
+										<option value="2">Formateur</option>
+										<option value="3">Entreprise</option>
+										<option value="5">Particulier</option>
+									</select>
+								</div>
+							</div>
+
+							<div class="checkbox">
+								<label> <input type="checkbox" required="true">
+								</input>Accepter les termes et la politique
+								</label>
+							</div>
+							<button type="submit"
+								class="btn btn-success btn-flat m-b-30 m-t-30">Inscription</button>
+							<div class="register-link m-t-15 text-center">
+								<p>
+									Vous avez déjà un compte ? <a
+										href="#{request.contextPath}/user/register">
+										Connectez-vous</a>
+								</p>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+	</ui:define>
+	<link rel="stylesheet"
+		href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+
+</ui:composition>

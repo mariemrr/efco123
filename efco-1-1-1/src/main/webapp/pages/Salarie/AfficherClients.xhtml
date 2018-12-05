@@ -1,0 +1,97 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:b="http://bootsfaces.net/ui"
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+	template="/WEB-INF/templates/ClientTemp/TemClientConnecte.xhtml">
+      <ui:define name="titleName">Gestion Clients</ui:define>
+   <ui:define name="pageAfficherStagiaireClient">
+
+       <div class="tittle wow fadeInUp">
+            <center><h2>Afficher Liste Des Clients</h2></center>    
+            </div>
+
+   
+   <br></br>
+<div class="content mt-3">
+<br></br>
+            <table class="table table-condensed">
+    <thead>
+      <tr>
+        <th> Nom Client</th>
+        <th>E-mail</th>
+        <th>Téléphone</th>
+        <th>Maison Mère</th>
+        <th>Adresse Postale</th>
+        <th>Ville</th>
+        <th>Pays</th>
+        <th>SIREN</th>
+        <th>SIRET</th>
+        <th>RCS/RM</th>
+        <th>Assujetti TVA</th>
+        <th>Effectif</th>
+        <th>Type Tier</th>
+        <th>Forme Juridique</th>
+        <th>Numero Compte Bancaire</th>
+       
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><p><a href="#{request.contextPath}/faces/pages/Salarie/AfficherStagiaires.xhtml">Amazon</a></p></td>
+        <td>amazon@gmail.com</td>
+        <td>0643563214</td>
+        <td>AMAZON UK</td>
+        <td>71100</td>
+        <td>Macon</td>
+        <td>France</td>
+        <td>12348763</td>
+        <td>890456732</td>
+        <td>234567021</td>
+
+        <td>Oui</td>
+        <td>35</td>
+        <td>Client</td>
+        <td></td>
+        <td>FR12365784098SG</td>
+         
+      </tr>
+      <tr>
+        <td><p><a href="#{request.contextPath}/faces/pages/Salarie/AfficherStagiaires.xhtml">ADECCO</a></p></td>
+        <td>adecco@gmail.com</td>
+        <td>0643563214</td>
+        <td>ADECCO France</td>
+        <td>75000</td>
+        <td>Paris</td>
+        <td>France</td>
+        <td>44348763</td>
+        <td>510456732</td>
+        <td>834567021</td>
+        <td>Oui</td>
+        <td>24</td>
+        <td>Client</td>
+        <td></td>
+        <td>FR12365785768SG</td>
+         
+      </tr>
+      
+    </tbody>
+  </table>
+  </div> 
+                         
+                         
+                       
+   </ui:define>
+   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+ </ui:composition>
+    
+
+	
+	
+	
+	

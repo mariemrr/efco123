@@ -1,0 +1,495 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui" xmlns:b="http://bootsfaces.net/ui"
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:th="http://www.thymeleaf.org"
+	template="/WEB-INF/templates/ClientTemp/templateClient.xhtml">
+	<ui:define name="titleName">Mon Compte</ui:define>
+	<ui:define name="pageContent">
+		<c:if test="${ not empty errors}">
+
+			<script>
+				swal({
+					title : "Erreur",
+					text : "${errors}",
+					type : "error",
+					button : "Ok",
+				});
+				//	swal("", "${signup_is_done}");
+			</script>
+
+		</c:if>
+		<c:if test="${ not empty success}">
+
+			<script>
+				swal({
+					title : "Félicitations",
+					text : "${success}",
+					type : "success",
+					button : "Ok",
+				});
+				//	swal("", "${signup_is_done}");
+			</script>
+
+		</c:if>
+
+		<c:if test="${ not empty stage_errors}">
+
+			<script>
+				swal({
+					title : "Erreur",
+					text : "${stage_errors}",
+					type : "error",
+					button : "Ok",
+				});
+				//	swal("", "${signup_is_done}");
+			</script>
+
+		</c:if>
+		<div class="tittle wow fadeInUp">
+			<h2>Mon compte</h2>
+		</div>
+
+		<ul class="nav nav-tabs">
+			<li class="active"><a data-toggle="tab" href="#setting">Paramétres</a></li>
+			<li><a data-toggle="tab" href="#stagiaires">Stagiaires</a></li>
+		</ul>
+
+		<div class="tab-content" style="padding: 62px">
+			<div id="setting" class="tab-pane fade in active">
+				<h3>Paramétres</h3>
+
+				<form class="form_edit_user"
+					action="#{request.contextPath}/user/profile/edit"
+					style="height: 938px;" method="post">
+
+					<div class="form-group">
+						<label class="control-label col-sm-2" for="text">Nom :</label>
+						<div class="col-sm-10">
+							<p class="form-control-static">
+								<input type="text" class="form-control" name="nom"
+									value="${user.getNom()}" />
+							</p>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label class="control-label col-sm-2" for="text">Prénom :</label>
+						<div class="col-sm-10">
+							<p class="form-control-static">
+								<input type="text" class="form-control" name="prenom"
+									value="${user.getPrenom()}" />
+							</p>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label class="control-label col-sm-2" for="email">Adresse
+							e-mail:</label>
+						<div class="col-sm-10">
+							<p class="form-control-static">
+								<input type="email" class="form-control input_user" name="email"
+									value="${user.getEmail()}" />
+							</p>
+						</div>
+
+					</div>
+
+					<div class="form-group">
+						<label class="control-label col-sm-2" for="numero">Numéro
+							De Téléphone:</label>
+						<div class="col-sm-10">
+							<p class="form-control-static">
+								<input type="number" class="form-control input_user"
+									name="num_tel" value="${user.getNum_tel()}" />
+							</p>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label class="control-label col-sm-2" for="number">Maison
+							Mère:</label>
+						<div class="col-sm-10">
+							<p class="form-control-static">
+								<input type="text" class="form-control input_user"
+									name="maison_mere" value="${user.getClient().getMaisonMere()}" />
+							</p>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label class="control-label col-sm-2" for="text">Adresse:</label>
+						<div class="col-sm-10">
+							<p class="form-control-static">
+								<input type="text" class="form-control input_user"
+									name="adresse" value="${user.getAdresse()}" />
+							</p>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label class="control-label col-sm-2" for="text">Code
+							postal :</label>
+						<div class="col-sm-10">
+							<p class="form-control-static">
+								<input type="number" class="form-control input_user"
+									name="code_postal" value="${user.getClient().getCodePostal()}" />
+							</p>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label class="control-label col-sm-2" for="text">Ville:</label>
+						<div class="col-sm-10">
+							<p class="form-control-static">
+								<input type="text" class="form-control input_user" name="ville"
+									value="${user.getClient().getVille()}" />
+							</p>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label class="control-label col-sm-2" for="text">Pays:</label>
+						<div class="col-sm-10">
+							<p class="form-control-static">
+								<input type="text" class="form-control input_user" name="pays"
+									value="${user.getClient().getPays()}" />
+							</p>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label class="control-label col-sm-2" for="number">SIREN:</label>
+						<div class="col-sm-10">
+							<p class="form-control-static">
+								<input type="number" class="form-control input_user"
+									name="siren" value="${user.getClient().getSiren()}" />
+							</p>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label class="control-label col-sm-2" for="number">SIRET :</label>
+						<div class="col-sm-10">
+							<p class="form-control-static">
+								<input type="number" class="form-control input_user"
+									name="siret" value="${user.getClient().getSiret()}" />
+							</p>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label class="control-label col-sm-2" for="number">RCS RM:</label>
+						<div class="col-sm-10">
+							<p class="form-control-static">
+								<input type="number" class="form-control input_user"
+									name="rcs_rm" value="${user.getClient().getRcs_rm()}" />
+							</p>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label class="control-label col-sm-2" for="text">Assujetti
+							TVA</label>
+						<div class="col-sm-10">
+							<p class="form-control-static">
+								<select class="form-control input" name="assujetti_tva">
+									<c:if test="${ user.getClient().isAssujetti_TVA()==true}">
+										<option value="1" selected="selected">Oui</option>
+										<option value="2">Non</option>
+									</c:if>
+									<c:if test="${ user.getClient().isAssujetti_TVA()==false}">
+										<option value="1">Oui</option>
+										<option value="2" selected="selected">Non</option>
+									</c:if>
+								</select>
+							</p>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label class="control-label col-sm-2" for="text">Type
+							Tier:</label>
+						<div class="col-sm-10">
+							<p class="form-control-static">
+								<input type="text" class="form-control input_user"
+									name="type_tier" value="${user.getClient().getType_tier()}" />
+							</p>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label class="control-label col-sm-2" for="text">Forme
+							Juridique :</label>
+						<div class="col-sm-10">
+							<p>
+								<input type="text" class="form-control input_user"
+									name="forme_juridique"
+									value="${user.getClient().getFormejuridique()}" />
+							</p>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label class="control-label col-sm-2" for="text">Numéro Carte
+							Bancaire :</label>
+						<div class="col-sm-10">
+							<p class="form-control-static">
+								<input type="number" class="form-control input_user"
+									name="num_carte_bancaire"
+									value="${user.getClient().getNumeroCompteBanc()}" />
+							</p>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label class="control-label col-sm-2" for="text">Mot de
+							passe :</label>
+						<div class="col-sm-10">
+							<p class="form-control-static">
+								<input type="password" class="form-control input_user"
+									name="password" value="${user.getPassword()}" />
+							</p>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label class="control-label col-sm-2" for="text"> </label>
+						<div class="col-sm-10">
+							<p class="form-control-static">
+								<button type="submit" id="" class="btn btn-outline-warning btn_action">Modifier</button>
+							</p>
+
+
+						</div>
+					</div>
+
+				</form>
+
+			</div>
+
+			<div id="stagiaires" class="tab-pane fade">
+				<h3>Liste stagiaires</h3>
+				<a href="#" 
+					class="btn btn-outline-success" data-toggle="modal" data-target="#add_stag">Ajouter
+					stagiaire</a>
+				<table class="table">
+					<thead>
+						<th>Nom</th>
+						<th>Prénom</th>
+						<th>Adresse e-mail</th>
+						<th>Adresse</th>
+						<th>Numéro de téléphone</th>
+
+						<th>Action</th>
+					</thead>
+					<tbody>
+						<c:forEach var="stag" items="${list_stag}">
+							<tr>
+
+								<td id="nom_value_${stag.getId()}">${stag.getUser().getNom()}</td>
+								<td id="prenom_value_${stag.getId()}">${stag.getUser().getPrenom()}</td>
+								<td id="email_value_${stag.getId()}">${stag.getUser().getEmail()}</td>
+								<td id="adresse_value_${stag.getId()}">${stag.getUser().getAdresse()}</td>
+								<td id="tel_value_${stag.getId()}">${stag.getUser().getNum_tel()}</td>
+
+								<td><a
+									href="#{request.contextPath}/user/stagiaire/delete/${stag.getId()}"
+									class="btn btn-outline-danger">Supprimer</a> <a href="#"
+									data-id="${stag.getId()}"
+									class="btn btn-outline-warning edit_stagiaire">Modifier</a></td>
+
+
+							</tr>
+						</c:forEach>
+					</tbody>
+				</table>
+			</div>
+		</div>
+
+
+
+		<div class="modal" id="add_stag" tabindex="-1" role="dialog">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content" style="margin-top: 200px;">
+					<div class="modal-header">
+						<h5 class="modal-title">Ajouter</h5>
+						<button type="button" class="close" data-dismiss="modal"
+							aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<form action="#{request.contextPath}/user/stagiaire/add"
+							method="post">
+							<input type="hidden" name="${_csrf.parameterName}"
+								value="${_csrf.token}" />
+							<div class="form-group">
+								<label for="recipient-name" class="col-form-label">Nom:</label>
+								<input type="text" name="nom" id="" class="form-control" />
+							</div>
+
+							<div class="form-group">
+								<label for="recipient-name" class="col-form-label">Prénom:</label>
+								<input type="text" name="prenom" id="" class="form-control" />
+							</div>
+
+							<div class="form-group">
+								<label for="recipient-name" class="col-form-label">Adresse e-mail:</label>
+								<input type="email" required="required" name="email" id=""
+									class="form-control" />
+							</div>
+
+							<div class="form-group">
+								<label for="recipient-name" class="col-form-label">Adresse:</label>
+								<input type="text" name="adresse" required="required" id=""
+									class="form-control" />
+
+							</div>
+
+
+							<div class="form-group">
+								<label for="recipient-name" class="col-form-label">Numéro de 
+									télèphone:</label> <input type="number" name="num_tel" required="required"
+									id="" class="form-control" />
+
+							</div>
+
+							<div class="form-group">
+								<label for="recipient-name" class="col-form-label">Mot
+									de passe :</label> <input type="password" name="password"
+									required="required" id="" class="form-control" />
+
+							</div>
+
+							<button type="submit" class="btn btn-primary">Ajouter</button>
+						</form>
+					</div>
+
+				</div>
+			</div>
+		</div>
+
+		<div class="modal" id="edit_stagiaire" tabindex="-1" role="dialog">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content" style="margin-top: 200px;">
+					<div class="modal-header">
+						<h5 class="modal-title">Modifier</h5>
+						<button type="button" class="close" data-dismiss="modal"
+							aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<form action="#{request.contextPath}/user/stagiaire/edit"
+							method="post">
+							<input type="hidden" name="${_csrf.parameterName}"
+								value="${_csrf.token}" />
+							<div class="form-group">
+								<label for="recipient-name" class="col-form-label">Nom:</label>
+								<input type="text" name="nom" id="nom_stag_to_edit"
+									class="form-control" />
+							</div>
+
+							<div class="form-group">
+								<label for="recipient-name" class="col-form-label">Prénom:</label>
+								<input type="text" name="prenom" id="prenom_stag_to_edit"
+									class="form-control" />
+							</div>
+
+							<div class="form-group">
+								<label for="recipient-name" class="col-form-label">Adresse e-mail:</label>
+								<input type="email" required="required" name="email"
+									id="email_stag_to_edit" class="form-control" />
+							</div>
+
+							<div class="form-group">
+								<label for="recipient-name" class="col-form-label">Adresse:</label>
+								<input type="text" name="adresse" required="required"
+									id="adresse_stag_to_edit" class="form-control" />
+
+							</div>
+
+
+							<div class="form-group">
+								<label for="recipient-name" class="col-form-label">Numéro de 
+									télèphone:</label> <input type="number" name="num_tel" required="required"
+									id="tel_stag_to_edit" class="form-control" />
+
+							</div>
+
+							<div class="form-group">
+								<label for="recipient-name" class="col-form-label">Mot
+									de passe :</label> <input type="password" name="password"
+									required="required" id="password_stag_to_edit"
+									class="form-control" />
+
+							</div>
+
+
+							<input type="hidden" id="stagiaire_id_to_edit"
+								name="stagiaire_id_to_edit" />
+
+
+							<button type="submit" class="btn btn-outline-primary">Enregistrer
+							</button>
+						</form>
+					</div>
+
+				</div>
+			</div>
+		</div>
+		<style>
+@media ( max-width : 767px) {
+	.form_edit_user {
+		height: auto !important;
+	}
+}
+</style>
+		<script>
+			function go_for_edit() {
+				$('.form_edit_user input, .form_edit_user select').each(
+						function(index) {
+							var input = $(this);
+							input.removeAttr("disabled");
+						});
+			}
+			function cancel_edit() {
+				$('.form_edit_user input, .form_edit_user select').each(
+						function(index) {
+							var input = $(this);
+							input.attr("disabled", "disabled");
+						});
+			}
+			$(document).on("click", ".btn_action", function() {
+				go_for_edit();
+				$("#btn_save").show();
+				$(this).hide();
+				$(".btn_cancel").show();
+
+			});
+
+			$(document).on("click", ".btn_cancel", function() {
+
+				cancel_edit();
+				$("#btn_edit").show();
+				$("#btn_save").hide();
+				$(this).hide();
+			});
+		</script>
+	</ui:define>
+	<link rel="stylesheet"
+		href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+
+</ui:composition>
+
+
+
+
+

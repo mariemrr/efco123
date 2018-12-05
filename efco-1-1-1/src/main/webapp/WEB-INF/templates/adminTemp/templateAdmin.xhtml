@@ -1,0 +1,490 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang=""> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8" lang=""> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9" lang=""> <![endif]-->
+<!--[if gt IE 8]><!-->
+<!--<![endif]-->
+<h:head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<title>EFCO FORMATION|ADMINISTRATEUR <ui:insert
+			name="titleName"></ui:insert>
+	</title>
+	<meta name="description" content="" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+	<link rel="apple-touch-icon" href="apple-icon.png" />
+	<link rel="icon"
+		href="#{request.contextPath}/resources/SimpleUserResources/images/EFCO Raindrop2.png"
+		type="image/x-icon" />
+	<!--   <link href="#{request.contextPath}/resources/adminResources/css/bootstrap.min.css" rel="stylesheet"/>
+ -->
+	<link rel="stylesheet"
+		href="#{request.contextPath}/resources/adminResources/css/normalize.css" />
+	<link rel="stylesheet"
+		href="#{request.contextPath}/resources/adminResources/css/bootstrap.min.css" />
+	<link rel="stylesheet"
+		href="#{request.contextPath}/resources/adminResources/css/font-awesome.min.css" />
+	<link rel="stylesheet"
+		href="#{request.contextPath}/resources/adminResources/css/themify-icons.css" />
+	<link rel="stylesheet"
+		href="#{request.contextPath}/resources/adminResources/css/flag-icon.min.css" />
+	<link rel="stylesheet"
+		href="#{request.contextPath}/resources/adminResources/css/cs-skin-elastic.css" />
+	<!-- <link rel="stylesheet" href="assets/css/bootstrap-select.less"> -->
+	<link rel="stylesheet"
+		href="#{request.contextPath}/resources/adminResources/scss/style.css" />
+	<link
+		href="#{request.contextPath}/resources/adminResources/css/lib/vector-map/jqvmap.min.css"
+		rel="stylesheet" />
+
+	<link
+		href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800'
+		rel='stylesheet' type='text/css' />
+	<link rel="stylesheet" type="text/css"
+		href="#{request.contextPath}/resources/SimpleUserResources/plugins/sweetalert/sweetalert.css"
+		media="all" />
+	<script
+		src="#{request.contextPath}/resources/SimpleUserResources/plugins/sweetalert/sweetalert.min.js"></script>
+	<!-- <script type="text/javascript" src="https://cdn.jsdelivr.net/html5shiv/3.7.3/html5shiv.min.js"></script> -->
+	<style>
+@media only screen and (max-width: 600px) {
+	.navbar .navbar-brand img {
+		max-width: 61px;
+	}
+}
+</style>
+
+
+	<script src="http://code.jquery.com/jquery-latest.min.js"
+        type="text/javascript"></script>
+	
+	<script
+		src="#{request.contextPath}/resources/adminResources/js/myscript.js"></script>
+	<link rel="stylesheet"
+		href="https://fullcalendar.io/js/fullcalendar-2.2.5/fullcalendar.css" />
+	<script
+		src="https://fullcalendar.io/js/fullcalendar-2.2.5/lib/moment.min.js"></script>
+	<script
+		src="https://fullcalendar.io/js/fullcalendar-2.2.5/fullcalendar.min.js"></script>
+</h:head>
+<h:body>
+
+	<c:if test="${ not empty errors }">
+		<script>
+			swal({
+				title : "Erreur",
+				text : "${errors}",
+				type : "error",
+				button : "Ok",
+			});
+			//	swal("", "${signup_is_done}");
+		</script>
+	</c:if>
+	<c:if test="${ not empty success }">
+		<script>
+			swal({
+				title : "Félicitations",
+				text : "${success}",
+				type : "success",
+				button : "Ok",
+			});
+			//	swal("", "${signup_is_done}");
+		</script>
+	</c:if>
+	<c:if test="${ not empty info }">
+		<script>
+			swal({
+				title : "Information",
+				text : "${info}",
+				type : "info",
+				button : "Ok",
+			});
+			//	swal("", "${signup_is_done}");
+		</script>
+	</c:if>
+			${session.removeAttribute("errors")}
+			${session.removeAttribute("success")}
+			${session.removeAttribute("info")}
+	<!-- Left Panel -->
+
+	<aside id="left-panel" class="left-panel"> <nav
+		class="navbar navbar-expand-sm navbar-default">
+
+	<div class="navbar-header">
+		<button class="navbar-toggler" type="button" data-toggle="collapse"
+			data-target="#main-menu" aria-controls="main-menu"
+			aria-expanded="false" aria-label="Toggle navigation">
+			<i class="fa fa-bars"></i>
+		</button>
+		<a class="navbar-brand" href="#{request.contextPath}/admin/dashboard"><img
+			src="#{request.contextPath}/resources/adminResources/images/EFCO Logo 2.png"
+			alt="Logo" /></a> <a class="navbar-brand hidden" href="#{request.contextPath}/admin/dashboard"><img
+			src="#{request.contextPath}/resources/adminResources/images/EFCO Logo 2.png"
+			alt="Logo" /></a>
+	</div>
+
+	<div id="main-menu" class="main-menu collapse navbar-collapse">
+		<ul class="nav navbar-nav">
+			<li class="active"><a
+				href="#{request.contextPath}/admin/dashboard"> <i
+					class="menu-icon fa fa-dashboard"></i>Dashboard
+			</a></li>
+			<h3 class="menu-title">Elements</h3>
+			<!-- /.menu-title -->
+
+
+
+			<li class="menu-item-has-children dropdown"><a href="#"
+				class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+				aria-expanded="false"> <i class="menu-icon fa fa-th"></i>Actualités
+
+			</a>
+				<ul class="sub-menu children dropdown-menu">
+					<li><i class="menu-icon fa fa-th"></i><a
+						href="#{request.contextPath}/admin/actualite">Liste</a></li>
+				</ul></li>
+
+			<c:if test="${session.getAttribute('admin')!=null}">
+				<li class="menu-item-has-children dropdown"><a href="#"
+					class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+					aria-expanded="false"> <i class="menu-icon fa fa-th"></i>Salairés
+
+				</a>
+					<ul class="sub-menu children dropdown-menu">
+						<li><i class="menu-icon fa fa-th"></i><a
+							href="#{request.contextPath}/admin/salaries">Liste</a></li>
+
+					</ul></li>
+			</c:if>
+
+			<li class="menu-item-has-children dropdown"><a href="#"
+				class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+				aria-expanded="false"> <i class="menu-icon fa fa-laptop"></i>Clients
+			</a>
+				<ul class="sub-menu children dropdown-menu">
+					<li><i class="fa fa-puzzle-piece"></i><a
+						href="#{request.contextPath}/admin/clients">Liste</a></li>
+
+				</ul></li>
+
+
+			<li class="menu-item-has-children dropdown"><a href="#"
+				class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+				aria-expanded="false"> <i class="menu-icon fa fa-th"></i>Formateurs
+
+			</a>
+				<ul class="sub-menu children dropdown-menu">
+					<li><i class="menu-icon fa fa-th"></i><a
+						href="#{request.contextPath}/admin/formateurs">Liste</a></li>
+
+				</ul></li>
+
+			<li class="menu-item-has-children dropdown"><a href="#"
+				class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+				aria-expanded="false"> <i class="menu-icon fa fa-th"></i>Stagiaires
+
+			</a>
+				<ul class="sub-menu children dropdown-menu">
+					<li><i class="menu-icon fa fa-th"></i><a
+						href="#{request.contextPath}/admin/stagiaires">Liste</a></li>
+
+				</ul></li>
+
+
+
+
+			<li class="menu-item-has-children dropdown"><a href="#"
+				class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+				aria-expanded="false"> <i class="menu-icon fa fa-th"></i>Types
+					de formation
+			</a>
+				<ul class="sub-menu children dropdown-menu">
+					<li><i class="menu-icon fa fa-th"></i><a
+						href="#{request.contextPath}/admin/type_formation">Liste</a></li>
+				</ul></li>
+
+			<li class="menu-item-has-children dropdown"><a href="#"
+				class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+				aria-expanded="false"> <i class="menu-icon fa fa-th"></i>Sous
+					types formation
+
+			</a>
+				<ul class="sub-menu children dropdown-menu">
+					<li><i class="menu-icon fa fa-th"></i><a
+						href="#{request.contextPath}/admin/sous_types_formation">Liste</a></li>
+
+				</ul></li>
+
+
+			<li class="menu-item-has-children dropdown"><a href="#"
+				class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+				aria-expanded="false"> <i class="menu-icon fa fa-table"></i>Formations
+			</a>
+				<ul class="sub-menu children dropdown-menu">
+					<li><i class="fa fa-table"></i><a
+						href="#{request.contextPath}/admin/formations">Liste des
+							formations </a></li>
+
+				</ul></li>
+
+
+			<li class="menu-item-has-children dropdown"><a href="#"
+				class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+				aria-expanded="false"> <i class="menu-icon fa fa-th"></i>Sessions
+					de formation
+			</a>
+				<ul class="sub-menu children dropdown-menu">
+					<li><i class="menu-icon fa fa-th"></i><a
+						href="#{request.contextPath}/admin/session_formations">Liste</a></li>
+
+				</ul></li>
+
+
+			<li class="menu-item-has-children dropdown"><a href="#"
+				class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+				aria-expanded="false"> <i class="menu-icon fa fa-table"></i>Planning
+			</a>
+				<ul class="sub-menu children dropdown-menu">
+					<li><i class="fa fa-table"></i><a
+						href="#{request.contextPath}/admin/calendar">Calendrier </a></li>
+						<li><i class="fa fa-table"></i><a
+						href="#{request.contextPath}/admin/calendar_v2">Calendrier V2 </a></li>
+
+				</ul></li>
+
+			<li class="menu-item-has-children dropdown"><a href="#"
+				class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+				aria-expanded="false"> <i class="menu-icon fa fa-th"></i>Devis
+			</a>
+				<ul class="sub-menu children dropdown-menu">
+					<li><i class="menu-icon fa fa-th"></i><a
+						href="#{request.contextPath}/admin/devis">Liste</a></li>
+
+				</ul></li>
+
+			<li class="menu-item-has-children dropdown"><a href="#"
+				class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+				aria-expanded="false"> <i class="menu-icon fa fa-th"></i>Factures
+
+			</a>
+				<ul class="sub-menu children dropdown-menu">
+					<li><i class="menu-icon fa fa-th"></i><a
+						href="#{request.contextPath}/admin/factures">Suivi des
+							factures </a></li>
+
+				</ul></li>
+
+			<li class="menu-item-has-children dropdown"><a href="#"
+				class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+				aria-expanded="false"> <i class="menu-icon fa fa-th"></i>Salles
+
+			</a>
+				<ul class="sub-menu children dropdown-menu">
+					<li><i class="menu-icon fa fa-th"></i><a
+						href="#{request.contextPath}/admin/salles">Liste</a></li>
+
+				</ul></li>
+
+
+			<!--<h3 class="menu-title">Icons</h3>
+			 /.menu-title -->
+
+		</ul>
+	</div>
+	<!-- /.navbar-collapse --> </nav> </aside>
+	<!-- /#left-panel -->
+
+	<!-- Left Panel -->
+
+	<!-- Right Panel -->
+
+	<div id="right-panel" class="right-panel">
+
+		<!-- Header-->
+		<header id="header" class="header">
+
+		<div class="header-menu">
+
+			<div class="col-sm-7">
+				<a id="menuToggle" class="menutoggle pull-left"> <i
+					class="fa fa fa-tasks" style="margin-top: 12px;"></i></a>
+
+			</div>
+
+			<div class="col-sm-5">
+				<div class="user-area dropdown float-right">
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown"
+						aria-haspopup="true" aria-expanded="false"> <img
+						class="user-avatar rounded-circle"
+						src="#{request.contextPath}/resources/adminResources/images/admin.jpg"
+						alt="User Avatar" />
+					</a>
+
+					<div class="user-menu dropdown-menu"
+						style="border: 2px solid black;">
+						<a class="nav-link" href="#{request.contextPath}/llogout"><i
+							class="fa fa-power -off"></i>Déconnexion</a>
+					</div>
+				</div>
+
+				<div class="language-select dropdown" id="language-select">
+					<a class="dropdown-toggle" href="#" data-toggle="dropdown"
+						id="language" aria-haspopup="true" aria-expanded="true"> <i
+						class="flag-icon flag-icon-us"></i>
+					</a>
+					<div class="dropdown-menu" aria-labelledby="language">
+						<div class="dropdown-item">
+							<span class="flag-icon flag-icon-fr"></span>
+						</div>
+						<div class="dropdown-item">
+							<i class="flag-icon flag-icon-es"></i>
+						</div>
+						<div class="dropdown-item">
+							<i class="flag-icon flag-icon-us"></i>
+						</div>
+						<div class="dropdown-item">
+							<i class="flag-icon flag-icon-it"></i>
+						</div>
+					</div>
+				</div>
+
+			</div>
+		</div>
+
+		</header>
+		<!-- /header -->
+		<!-- Header-->
+
+		<div class="breadcrumbs">
+			<div class="col-sm-4">
+				<div class="page-header float-left">
+					<div class="page-title">
+						<h1>
+
+
+							<ui:insert name="currentPageName"></ui:insert>
+
+
+						</h1>
+					</div>
+				</div>
+			</div>
+			<div class="col-sm-8">
+				<div class="page-header float-right">
+					<div class="page-title">
+						<ol class="breadcrumb text-right">
+							<li class="active"><ui:insert name="currentPageName"></ui:insert></li>
+						</ol>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="content mt-3">
+
+
+			<ui:insert name="pageContent"></ui:insert>
+
+		</div>
+		<!-- .content -->
+	</div>
+	<!-- /#right-panel -->
+
+	<!-- Right Panel -->
+
+
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"></script>
+	<script
+		src="#{request.contextPath}/resources/adminResources/js/plugins.js"></script>
+	<script
+		src="#{request.contextPath}/resources/adminResources/js/main.js"></script>
+
+
+	<script
+		src="#{request.contextPath}/resources/adminResources/js/lib/chart-js/Chart.bundle.js"></script>
+	<script
+		src="#{request.contextPath}/resources/adminResources/js/dashboard.js"></script>
+	<script
+		src="#{request.contextPath}/resources/adminResources/js/widgets.js"></script>
+	<script
+		src="#{request.contextPath}/resources/adminResources/js/lib/vector-map/jquery.vmap.js"></script>
+	<script
+		src="#{request.contextPath}/resources/adminResources/js/lib/vector-map/jquery.vmap.min.js"></script>
+	<script
+		src="#{request.contextPath}/resources/adminResources/js/lib/vector-map/jquery.vmap.sampledata.js"></script>
+	<script
+		src="#{request.contextPath}/resources/adminResources/js/lib/vector-map/country/jquery.vmap.world.js"></script>
+	<link rel="stylesheet" type="text/css"
+		href="https://cdn.datatables.net/v/dt/dt-1.10.18/datatables.min.css" />
+
+	<script type="text/javascript"
+		src="https://cdn.datatables.net/v/dt/dt-1.10.18/datatables.min.js"></script>
+
+
+	<script>
+		(function($) {
+			"use strict";
+
+			jQuery('#vmap').vectorMap({
+				map : 'world_en',
+				backgroundColor : null,
+				color : '#ffffff',
+				hoverOpacity : 0.7,
+				selectedColor : '#1de9b6',
+				enableZoom : true,
+				showTooltip : true,
+				values : sample_data,
+				scaleColors : [ '#1de9b6', '#03a9f5' ],
+				normalizeFunction : 'polynomial'
+			});
+		})(jQuery);
+	</script>
+	<script>
+		jQuery(document)
+				.ready(
+						function() {
+
+							var table = jQuery(".table")
+									.dataTable(
+											{
+												responsive : true,
+
+												"language" : {
+													"sProcessing" : "Traitement en cours...",
+													"sSearch" : "Rechercher&nbsp;:",
+													"sLengthMenu" : "Afficher _MENU_ &eacute;l&eacute;ments",
+													"sInfo" : "Affichage de l'&eacute;lement _START_ &agrave; _END_ sur _TOTAL_ &eacute;l&eacute;ments",
+													"sInfoEmpty" : "Affichage de l'&eacute;lement 0 &agrave; 0 sur 0 &eacute;l&eacute;ments",
+													"sInfoFiltered" : "(filtr&eacute; de _MAX_ &eacute;l&eacute;ments au total)",
+													"sInfoPostFix" : "",
+													"sLoadingRecords" : "Chargement en cours...",
+													"sZeroRecords" : "Aucun &eacute;l&eacute;ment &agrave; afficher",
+													"sEmptyTable" : "Aucune donn&eacute;e disponible",
+													"oPaginate" : {
+														"sFirst" : "Premier",
+														"sPrevious" : "Pr&eacute;c&eacute;dent",
+														"sNext" : "Suivant",
+														"sLast" : "Dernier"
+													},
+													"oAria" : {
+														"sSortAscending" : ": activer pour trier la colonne par ordre croissant",
+														"sSortDescending" : ": activer pour trier la colonne par ordre d&eacute;croissant"
+													}
+												}
+
+											});
+							new $.fn.dataTable.FixedHeader(table);
+						})
+	</script>
+
+</h:body>
+</html>

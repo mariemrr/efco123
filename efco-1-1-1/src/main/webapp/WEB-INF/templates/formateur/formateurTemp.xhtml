@@ -1,0 +1,326 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<script
+	src="#{request.contextPath}/resources/SimpleUserResources/js/jquery-1.12.0.min.js"></script>
+<!--    <link href="#{request.contextPath}/resources/SimpleUserResources/css/fullcalendar.min.css" rel='stylesheet' />
+<link href="#{request.contextPath}/resources/SimpleUserResources/css/fullcalendar.print.min.css" rel='stylesheet' media='print' />
+<script src="#{request.contextPath}/resources/SimpleUserResources/js/lib/moment.min.js"></script>
+<script src="#{request.contextPath}/resources/SimpleUserResources/js/lib/jquery.min.js"></script>
+<script src="#{request.contextPath}/resources/SimpleUserResources/js/fullcalendar.min.js"></script>-->
+
+<link rel="stylesheet"
+	href="https://fullcalendar.io/js/fullcalendar-2.2.5/fullcalendar.css" />
+<script
+	src="https://fullcalendar.io/js/fullcalendar-2.2.5/lib/moment.min.js"></script>
+<script
+	src="https://fullcalendar.io/js/fullcalendar-2.2.5/fullcalendar.min.js"></script>
+
+<title>EFCO FORMATION|<ui:insert name="titleName"></ui:insert>
+</title>
+
+<!-- Favicon -->
+<link rel="icon"
+	href="#{request.contextPath}/resources/SimpleUserResources/images/EFCO Raindrop2.png"
+	type="image/x-icon" />
+<!-- Bootstrap CSS -->
+<link
+	href="#{request.contextPath}/resources/SimpleUserResources/css/bootstrap.min.css"
+	rel="stylesheet" />
+<!-- Animate CSS -->
+<link
+	href="#{request.contextPath}/resources/SimpleUserResources/vendors/animate/animate.css"
+	rel="stylesheet" />
+<!-- Icon CSS-->
+<link rel="stylesheet"
+	href="#{request.contextPath}/resources/SimpleUserResources/vendors/font-awesome/css/font-awesome.min.css" />
+<!-- Camera Slider -->
+<link rel="stylesheet"
+	href="#{request.contextPath}/resources/SimpleUserResources/vendors/camera-slider/camera.css" />
+<!-- Owlcarousel CSS-->
+<link rel="stylesheet" type="text/css"
+	href="#{request.contextPath}/resources/SimpleUserResources/vendors/owl_carousel/owl.carousel.css"
+	media="all" />
+
+<!--Theme Styles CSS-->
+<link rel="stylesheet" type="text/css"
+	href="#{request.contextPath}/resources/SimpleUserResources/css/style.css"
+	media="all" />
+
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+    <script src="js/html5shiv.min.js"></script>
+    <script src="js/respond.min.js"></script>
+    <![endif]-->
+<link rel="stylesheet" type="text/css"
+	href="#{request.contextPath}/resources/SimpleUserResources/plugins/sweetalert/sweetalert.css"
+	media="all" />
+<script
+	src="#{request.contextPath}/resources/SimpleUserResources/plugins/sweetalert/sweetalert.min.js"></script>
+</head>
+<body>
+	<!-- Preloader -->
+	<div class="preloader"></div>
+
+	<c:if test="${ not empty errors }">
+		<script>
+				swal({
+					title : "Erreur",
+					text : "${errors}",
+					type : "error",
+					button : "Ok",
+				});
+				//	swal("", "${signup_is_done}");
+			</script>
+	</c:if>
+	<c:if test="${ not empty success }">
+		<script>
+				swal({
+					title : "Félicitations",
+					text : "${success}",
+					type : "success",
+					button : "Ok",
+				});
+				//	swal("", "${signup_is_done}");
+			</script>
+	</c:if>
+	${session.removeAttribute("errors")}
+	${session.removeAttribute("success")}
+
+	<!-- Top Header_Area -->
+	<section class="top_header_area">
+	<div class="container">
+		<ul class="nav navbar-nav top_nav">
+			<li><a href="tel:+33 123 456 789"><i class="fa fa-phone"></i>+33
+					(0)3 85 43 75 06</a></li>
+			<li><a href="mailto:info@efco-formation.com"><i
+					class="fa fa-envelope-o"></i>info@efco-formation.com</a></li>
+			<li><a href="#"><i class="fa fa-clock-o"></i>Lun - Ven 8:00
+					- 17:00</a></li>
+		</ul>
+		<ul class="nav navbar-nav navbar-right social_nav">
+			<li><a
+				href="https://www.facebook.com/EFCO-Formation-1074939799290892/"><i
+					class="fa fa-facebook" aria-hidden="true"></i></a></li>
+			<!--  <li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+                <li><a href="#"><i class="fa fa-google-plus" aria-hidden="true"></i></a></li>
+                <li><a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>-->
+			<li><a
+				href="https://www.linkedin.com/company/efco-formation/?trk=biz-companies-cym"><i
+					class="fa fa-linkedin" aria-hidden="true"></i></a></li>
+		</ul>
+	</div>
+	</section>
+	<!-- End Top Header_Area -->
+
+	<!-- Header_Area -->
+	<nav class="navbar navbar-default header_aera" id="main_navbar">
+	<div class="container">
+		<!-- searchForm -->
+		<!--    <div class="searchForm">
+                <form action="#" class="row m0">
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="fa fa-search"></i></span>
+                        <input type="search" name="search" class="form-control" placeholder="Type &amp; Hit Enter"></input>
+                        <span class="input-group-addon form_hide"><i class="fa fa-times"></i></span>
+                    </div>
+                </form>
+            </div>-->
+		<!-- End searchForm -->
+		<!-- Brand and toggle get grouped for better mobile display -->
+		<div class="col-md-2 p0">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed"
+					data-toggle="collapse" data-target="#min_navbar">
+					<span class="sr-only">Toggle navigation</span> <span
+						class="icon-bar"></span> <span class="icon-bar"></span> <span
+						class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="#{request.contextPath}/index"><img
+					src="#{request.contextPath}/resources/SimpleUserResources/images/PetitLogo.png"
+					alt="" /></a>
+			</div>
+		</div>
+
+		<!-- Collect the nav links, forms, and other content for toggling -->
+		<div class="col-md-10 p0">
+			<div class="collapse navbar-collapse" id="min_navbar">
+				<ul class="nav navbar-nav navbar-right">
+					<li><a href="#{request.contextPath}/index">Accueil</a></li>
+					<li><a href="#{request.contextPath}/about_us">Qui Sommes
+							Nous?</a></li>
+
+					<li class="dropdown submenu"><a href="#"
+						class="dropdown-toggle" data-toggle="dropdown">Nos Services</a>
+						<ul class="dropdown-menu other_dropdwn">
+							<li><a href="#{request.contextPath}/formation_techniques">Formations
+									Tehniques</a></li>
+							<li><a
+								href="#{request.contextPath}/faces/pages/all/formationsTertiaires.xhtml">Formations
+									Tertiaires</a></li>
+						</ul></li>
+					<li><a href="#">Gallerie</a></li>
+					<!--  <li class="dropdown submenu">
+                            <a href="#{request.contextPath}/faces/pages/all/ListeActualités.xhtml" class="dropdown-toggle" data-toggle="dropdown">Actualités</a>
+                            
+                        </li>-->
+					<li><a href="#{request.contextPath}/planning">Planning</a></li>
+					<li><a href="#{request.contextPath}/devis">Devis </a></li>
+
+
+
+					<li><a href="#{request.contextPath}/contact_us">Contact</a></li>
+					<c:if test="${ not empty user}">
+						<li class="dropdown submenu"><a href="#"
+							class="dropdown-toggle" data-toggle="dropdown">${user.getNom()}
+								${user.getPrenom()}</a>
+							<ul class="dropdown-menu other_dropdwn">
+								<li><a href="#{request.contextPath}/formateur/profile">Profile
+								</a></li>
+								<li class="dropdown submenu"><a
+									href="#{request.contextPath}/llogout">Déconnexion</a></li>
+							</ul></li>
+					</c:if>
+					<c:if test="${ empty user}">
+						<li class="dropdown submenu"><a
+							href="#{request.contextPath}/user/login">Connexion</a></li>
+					</c:if>
+
+					<!--   <li><a href="#" class="nav_searchFrom"><i class="fa fa-search"></i></a></li>-->
+				</ul>
+			</div>
+			<!-- /.navbar-collapse -->
+		</div>
+	</div>
+	<!-- /.container --> </nav>
+
+
+	<ui:insert name="pageContent"></ui:insert>
+
+
+
+	<!-- Footer Area -->
+	<footer class="footer_area">
+	<div class="container">
+
+		<div class="footer_row row">
+			<div class="col-md-3 col-sm-6 footer_about"></div>
+			<div class="col-md-3 col-sm-6 footer_about">
+				<h2>A PROPOS DE NOUS</h2>
+				<img
+					src="#{request.contextPath}/resources/SimpleUserResources/images/EFCO Logo 2.png"
+					alt="" />
+				<p>Organiser des formations sur mesure, souples et évolutives
+					pour ne plus simplement former les collaborateurs d’une entreprise
+					mais les faire évoluer durablement en s’adaptant à leurs pratiques,
+					à leurs priorités et à leurs contraintes particulières. Les
+					formations sur mesure EFCO sont conçues pour répondre aux besoins
+					et attentes propres à votre entreprise et à votre secteur
+					d’activité.</p>
+				<ul class="socail_icon">
+					<li><a
+						href="https://www.facebook.com/EFCO-Formation-1074939799290892/"><i
+							class="fa fa-facebook" aria-hidden="true"></i></a></li>
+					<!--   <li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+                        <li><a href="#"><i class="fa fa-google-plus" aria-hidden="true"></i></a></li>-->
+					<li><a
+						href="https://www.linkedin.com/company/efco-formation/?trk=biz-companies-cym"><i
+							class="fa fa-linkedin" aria-hidden="true"></i></a></li>
+				</ul>
+			</div>
+			<div class="col-md-3 col-sm-6 footer_about"></div>
+			<!--<div class="col-md-3 col-sm-6 footer_about quick">
+                    <h2>Quick links</h2>
+                    <ul class="quick_link">
+                        <li><a href="#"><i class="fa fa-chevron-right"></i>Building Construction</a></li>
+                        <li><a href="#"><i class="fa fa-chevron-right"></i>Home Renovation</a></li>
+                        <li><a href="#"><i class="fa fa-chevron-right"></i>Hardwood Flooring</a></li>
+                        <li><a href="#"><i class="fa fa-chevron-right"></i>Repairing Of Roof</a></li>
+                        <li><a href="#"><i class="fa fa-chevron-right"></i>Commercial Construction</a></li>
+                        <li><a href="#"><i class="fa fa-chevron-right"></i>Concreate Transport</a></li>
+                    </ul>
+                </div>-->
+
+
+			<div class="col-md-3 col-sm-6 footer_about">
+				<h2>Contactez-Nous</h2>
+				<address>
+					<p>Vous avez des question? Besoin d'aide pour débuter votre
+						formation? N'hésitez pas à nous contacter</p>
+					<ul class="my_address">
+						<li><a href="mailto:info@efco-formation.com"><i
+								class="fa fa-envelope" aria-hidden="true"></i>info@efco-formation.com</a></li>
+						<li><a href="tel:+33 123 456 789"><i class="fa fa-phone"
+								aria-hidden="true"></i>+33 123 456 789</a></li>
+						<li><a
+							href="https://www.google.fr/maps/place/12+Rue+Alfred+Kastler,+71530+Fragnes/data=!4m2!3m1!1s0x47f2fb14ce39ae85:0x45c9bff1d3a9f8d4?sa=X&ved;=2ahUKEwi-qPOv8MvdAhVG-YUKHVBuCL8Q8gEwAHoECAYQAQ"><i
+								class="fa fa-map-marker" aria-hidden="true"></i><span>
+									Siège Social: 12 Rue Alfred Kastler 71530 Fragnes </span></a></li>
+						<li><a
+							href="https://www.google.fr/maps/place/44+Rue+du+G%C3%A9n%C3%A9ral+de+Gaulle,+80450+Camon/@49.8989076,2.3390363,17z/data=!3m1!4b1!4m5!3m4!1s0x47e785e9a4d37211:0xb06d0456c52ad80d!8m2!3d49.8989076!4d2.341225"><i
+								class="fa fa-map-marker" aria-hidden="true"></i><span>Site
+									de Amiens: 448 Rue du Général de Gaulle 80450 Camon </span></a></li>
+						<li><a
+							href="https://www.google.fr/maps/place/11+Rue+Gabriel+Lippmann,+71100+Chalon-sur-Sa%C3%B4ne/@46.8174056,4.8487906,17z/data=!3m1!4b1!4m5!3m4!1s0x47f2fb6b742c25fb:0xd543e19cd6ed3f20!8m2!3d46.8174056!4d4.8509793"><i
+								class="fa fa-map-marker" aria-hidden="true"></i><span>11
+									Rue Gabriel Lippmann 71100 Chalon-sur-Saône</span></a></li>
+
+					</ul>
+				</address>
+			</div>
+			<div class="col-md-3 col-sm-6 footer_about quick"></div>
+		</div>
+	</div>
+
+	</footer>
+	<!-- End Footer Area -->
+
+	<!-- jQuery JS -->
+
+	<!-- Bootstrap JS -->
+	<script
+		src="#{request.contextPath}/resources/SimpleUserResources/js/bootstrap.min.js"></script>
+	<!-- Animate JS -->
+	<script
+		src="#{request.contextPath}/resources/SimpleUserResources/vendors/animate/wow.min.js"></script>
+	<!-- Camera Slider -->
+	<script
+		src="#{request.contextPath}/resources/SimpleUserResources/vendors/camera-slider/jquery.easing.1.3.js"></script>
+	<script
+		src="#{request.contextPath}/resources/SimpleUserResources/vendors/camera-slider/camera.min.js"></script>
+	<!-- Isotope JS -->
+	<script
+		src="#{request.contextPath}/resources/SimpleUserResources/vendors/isotope/imagesloaded.pkgd.min.js"></script>
+	<script
+		src="#{request.contextPath}/resources/SimpleUserResources/vendors/isotope/isotope.pkgd.min.js"></script>
+	<!-- Progress JS -->
+	<script
+		src="#{request.contextPath}/resources/SimpleUserResources/vendors/Counter-Up/jquery.counterup.min.js"></script>
+	<script
+		src="#{request.contextPath}/resources/SimpleUserResources/vendors/Counter-Up/waypoints.min.js"></script>
+	<!-- Owlcarousel JS -->
+	<script
+		src="#{request.contextPath}/resources/SimpleUserResources/vendors/owl_carousel/owl.carousel.min.js"></script>
+	<!-- Stellar JS -->
+	<script
+		src="#{request.contextPath}/resources/SimpleUserResources/vendors/stellar/jquery.stellar.js"></script>
+	<!-- Theme JS -->
+	<script
+		src="#{request.contextPath}/resources/SimpleUserResources/js/theme.js"></script>
+
+
+	<script
+		src="#{request.contextPath}/resources/SimpleUserResources/js/myscript.js"></script>
+</body>
+</html>

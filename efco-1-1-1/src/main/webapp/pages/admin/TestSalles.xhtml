@@ -1,0 +1,65 @@
+<!DOCTYPE HTML>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"  xmlns:h="http://java.sun.com/jsf/html"  xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+<h:head>
+
+    <meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1" http-equiv="X-UA-Conpatible" />
+
+    <h:outputStylesheet library="css" name="bootstrap.min.css" />     
+
+    <title>Affichage Exemple Salles!!</title>
+
+    <style type="text/css">
+
+        .tableUpdated {
+
+            width: 90% !important;
+
+            margin: 17px 58px 0 !important;
+
+        }
+
+        .btnSpace {
+
+            margin: 17px;
+
+        }     
+
+    </style>
+
+</h:head>
+
+<h:body>
+
+    <center><h2><h:outputText value="Salles Records"/></h2></center>
+
+    <h:form id="salleForm">
+
+        <h:dataTable id="salleTable" binding="#{table}" value="#{salleBean.salles}" var="salle" styleClass="table table-striped table-bordered tableUpdated">
+
+            <h:column>
+
+                <f:facet name="header">Id</f:facet>
+
+                <h:outputText value="#{salle.idSal}" />                
+
+            </h:column>
+
+            <h:column>
+
+                <f:facet name="header">Nom De La Salle</f:facet>
+
+                <h:outputText value="#{salle.nomSalle}" />
+
+            </h:column>
+
+          
+</h:dataTable>
+               
+
+    </h:form>
+
+</h:body>
+
+</html>

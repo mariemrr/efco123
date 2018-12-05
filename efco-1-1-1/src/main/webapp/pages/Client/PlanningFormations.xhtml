@@ -1,0 +1,106 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:b="http://bootsfaces.net/ui"
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+	>
+	<h:head>
+	<meta charset='utf-8' />
+<link href='../fullcalendar.min.css' rel='stylesheet' />
+<link href='../fullcalendar.print.min.css' rel='stylesheet' media='print' />
+<script src='../lib/moment.min.js'></script>
+<script src='../lib/jquery.min.js'></script>
+<script src='../fullcalendar.min.js'></script>
+	</h:head>
+<h:form>
+    <p:growl id="messages" showDetail="true" />
+ 
+    <h:panelGrid columnClasses="value">
+        <h3 style="margin-top: 0">Planning Des Formations</h3>
+        <p:schedule id="schedule" value="#{scheduleBean.eventModel}" locale="fr" widgetVar="myschedule" timeZone="GMT+2">
+ 
+            <p:ajax event="dateSelect" listener="#{scheduleBean.onDateSelect}" update="eventDetails" oncomplete="PF('eventDialog').show();" />
+            <p:ajax event="eventSelect" listener="#{scheduleBean.onEventSelect}" update="eventDetails" oncomplete="PF('eventDialog').show();" />
+            <p:ajax event="eventMove" listener="#{scheduleBean.onEventMove}" update="messages" />
+            <p:ajax event="eventResize" listener="#{scheduleBean.onEventResize}" update="messages" />
+ 
+        </p:schedule>
+ 
+        
+     <!--     <h3>Lazy Schedule</h3>
+        <p:schedule  ajax="false" value="#{ScheduleBean.lazyEventModel}" />-->
+    </h:panelGrid>
+ 
+    <p:dialog widgetVar="eventDialog" header="Event Details" showEffect="clip" hideEffect="clip">
+        <h:panelGrid id="eventDetails" columns="2">
+            <p:outputLabel for="title" value="Formation:" />
+            <p:inputText id="title" value="#{scheduleBean.event.title}" required="true" />
+ 
+            <p:outputLabel for="from" value="De:" />
+            <p:calendar id="from" value="#{scheduleBean.event.startDate}" timeZone="GMT+2" pattern="dd/MM/yyyy HH:mm"/>
+ 
+            <p:outputLabel for="to" value="A:" />
+            <p:calendar id="to" value="#{scheduleBean.event.endDate}" timeZone="GMT+2" pattern="dd/MM/yyyy HH:mm"/>
+ 
+            <p:outputLabel for="allDay" value="Toute la journée:" />
+            <h:selectBooleanCheckbox id="allDay" value="#{scheduleBean.event.allDay}" />
+ 				  
+            <p:commandButton type="reset" value="annuler" />
+            <p:commandButton id="addButton" value="Enregistrer" actionListener="#{scheduleBean.addEvent}" oncomplete="PF('myschedule').update();PF('eventDialog').hide();" />
+        </h:panelGrid>
+    </p:dialog>    
+</h:form>
+ 
+
+<style type="text/css">
+    .value {
+        width: 1000px;
+    }
+
+
+  body {
+    margin: 40px 10px;
+    padding: 0;
+    font-family: "Lucida Grande",Helvetica,Arial,Verdana,sans-serif;
+    font-size: 14px;
+  }
+
+  #calendar {
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+</style>
+<script type="text/javascript">
+PrimeFaces.locales['fr'] = {
+		closeText: 'Fermer',
+		prevText: 'Précédent',
+		nextText: 'Suivant',
+		monthNames: ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre' ], 
+		monthNamesShort: ['Jan', 'Fév', 'Mar', 'Avr', 'Mai', 'Jun', 'Jul', 'Aoû', 'Sep', 'Oct', 'Nov', 'Déc' ], 
+		dayNames: ['Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi'], 
+		dayNamesShort: ['Dim', 'Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam'],
+		dayNamesMin: ['D', 'L', 'M', 'M', 'J', 'V', 'S'],
+		weekHeader: 'Semaine', 
+		firstDay: 1,
+		isRTL: false,
+		showMonthAfterYear: false,
+		yearSuffix:'',
+		timeOnlyTitle: 'Choisir l\'heure',
+		timeText: 'Heure', 
+		hourText: 'Heures', 
+		minuteText: 'Minutes',
+		secondText: 'Secondes',
+		currentText: 'Maintenant',
+		ampm: false,
+		month: 'Mois',
+		week: 'Semaine',
+		day: 'Jour',
+		allDayText: 'Toute la journée' };
+</script>
+</ui:composition>

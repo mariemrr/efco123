@@ -1,0 +1,149 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+   
+      > 
+    
+<h:head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <title>EFCO FORMATION|Inscription Client</title>
+    <meta name="description" content="Sufee Admin - HTML5 Admin Template"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+    <link rel="apple-touch-icon" href="#{request.contextPath}/resources/adminResources/apple-icon.png"/>
+    <link rel="shortcut icon" href="#{request.contextPath}/resources/adminResources/favicon.ico"/>
+
+    <link rel="stylesheet" href="#{request.contextPath}/resources/adminResources/css/normalize.css"/>
+    <link rel="stylesheet" href="#{request.contextPath}/resources/adminResources/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="#{request.contextPath}/resources/adminResources/css/font-awesome.min.css"/>
+    <link rel="stylesheet" href="#{request.contextPath}/resources/adminResources/css/themify-icons.css"/>
+    <link rel="stylesheet" href="#{request.contextPath}/resources/adminResources/css/flag-icon.min.css"/>
+    <link rel="stylesheet" href="#{request.contextPath}/resources/adminResources/css/cs-skin-elastic.css"/>
+    <!-- <link rel="stylesheet" href="assets/css/bootstrap-select.less"> -->
+    <link rel="stylesheet" href="#{request.contextPath}/resources/adminResources/scss/style.css"/>
+
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800' rel='stylesheet' type='text/css'/>
+
+    <!-- <script type="text/javascript" src="https://cdn.jsdelivr.net/html5shiv/3.7.3/html5shiv.min.js"></script> -->
+
+</h:head>
+<h:body class="bg-dark">
+
+
+    <div class="sufee-login d-flex align-content-center flex-wrap">
+        <div class="container">
+            <div class="login-content">
+                <div class="login-logo">
+                    <a href="#">
+                        <img class="align-content"  src="#{request.contextPath}/resources/adminResources/images/EFCOLOGOLogin.jpg" alt=""/>
+                    </a>
+                </div>
+                <div class="login-form">
+                    <form>
+                        <div class="form-group">
+                            <label>Nom</label>
+                            <input type="text" class="form-control" placeholder="Nom..."></input>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Adresse e-mail</label>
+                            <input type="email" class="form-control" placeholder="Adresse e-mail..."></input>
+                        </div>
+                        <div class="form-group">
+                            <label>Maison Mère</label>
+                            <input type="text" class="form-control" placeholder="Maison Mère..."></input>
+                        </div>
+                        <div class="form-group">
+                            <label>Adresse</label>
+                            <input type="text" class="form-control" placeholder="Adresse..."></input>
+                        </div>
+                        <div class="form-group">
+                            <label>Ville</label>
+                            <input type="text" class="form-control" placeholder="Ville..."></input>
+                        </div>
+                        <div class="form-group">
+                            <label>Pays</label>
+                            <input type="text" class="form-control" placeholder="Pays..."></input>
+                        </div>
+                        <div class="form-group">
+                            <label>Adresse e-mail</label>
+                            <input type="email" class="form-control" placeholder="Adresse e-mail..."></input>
+                        </div>
+                        <div class="form-group">
+                            <label>Numéro de téléphone</label>
+                            <input type="number" class="form-control" placeholder="0033..."></input>
+                        </div>
+                          <div class="form-group">
+                            <label>SIREN</label>
+                            <input type="number" class="form-control" placeholder="SIREN...."></input>
+                        </div>
+                          <div class="form-group">
+                            <label>SIRET</label>
+                            <input type="number" class="form-control" placeholder="SIRET...."></input>
+                        </div>
+                        <div class="form-group">
+                            <label>SIRET</label>
+                            <input type="number" class="form-control" placeholder="SIRET...."></input>
+                        </div>
+                         <div class="form-group">
+                            <label>RCS RM</label>
+                            <input type="number" class="form-control" placeholder="RCS RM...."></input>
+                        </div>
+                         <div class="row form-group">
+                            <div class="col col-md-3"><label for="select" class=" form-control-label">Assujetti TVA</label></div>
+                            <div class="col-12 col-md-9">
+                              <select name="select" id="select" class="form-control">
+                                <option value="0">Veuillez choisir...</option>
+                                <option value="1">Oui</option>
+                                <option value="2">Non</option>
+                              </select>
+                            </div>
+                          </div>
+                          <div class="form-group">
+                            <label>Forme Juridique</label>
+                            <input type="text" class="form-control" placeholder="Forme juridique..."></input>
+                        </div>
+                        <div class="form-group">
+                            <label>Categorie Client</label>
+                            <input type="text" class="form-control" placeholder="Catégorie"></input>
+                        </div>
+                        <div class="form-group">
+                            <label>Numero Compte Bancaire</label>
+                            <input type="number" class="form-control" placeholder="Numéro..."></input>
+                        </div>
+                          <div class="form-group">
+                            <label>Nom d'utilisateur</label>
+                            <input type="text" class="form-control" placeholder="Nom d'utilisateur"></input>
+                        </div>
+                        <div class="form-group">
+                            <label>Mot de passe</label>
+                            <input type="password" class="form-control" placeholder="Mot de passe"></input>
+                        </div>
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox"> </input>Accepter les termes et la politique
+                            </label>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-flat m-b-30 m-t-30">Inscription</button>
+                          <div class="register-link m-t-15 text-center">
+                            <p>Vous avez déjà un compte ? <a href="#{request.contextPath}/faces/pages/all/Login.xhtml"> Connectez-vous</a></p>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <script src="#{request.contextPath}/resources/adminResources/assets/js/vendor/jquery-2.1.4.min.js"></script>
+    <script src="#{request.contextPath}/resources/adminResources/assets/js/popper.min.js"></script>
+    <script src="#{request.contextPath}/resources/adminResources/assets/js/plugins.js"></script>
+    <script src="#{request.contextPath}/resources/adminResources/assets/js/main.js"></script>
+
+
+</h:body>
+
+      </ui:composition>

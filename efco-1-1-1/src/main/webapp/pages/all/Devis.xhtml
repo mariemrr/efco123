@@ -1,0 +1,175 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui" xmlns:b="http://bootsfaces.net/ui"
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	template="/WEB-INF/templates/ClientTemp/templateClient.xhtml">
+	<ui:define name="titleName">Devis|</ui:define>
+	<ui:define name="pageContent">
+
+		<!-- Banner area -->
+		<section class="banner_area" data-stellar-background-ratio="0.5">
+		<h2>Devis</h2>
+		<ol class="breadcrumb">
+			<li><a href="#{request.contextPath}/index">Acceuil</a></li>
+			<li><a href="#" class="active">Devis</a></li>
+		</ol>
+		</section>
+		<!-- End Banner area -->
+
+		<div class="tittle wow fadeInUp">
+			<h2>Demandez un devis en ligne</h2>
+
+		</div>
+		<div>
+			<c:if test="${ not empty errors_devis}">
+				<script>
+					swal({
+						title : "Information",
+						text : "${errors_devis}",
+						type : "error",
+						button : "Ok",
+					});
+					//	swal("", "${signup_is_done}");
+				</script>
+			</c:if>
+				<c:if test="${ not empty success_devis}">
+				<script>
+					swal({
+						title : "Information",
+						text : "${success_devis}",
+						type : "success",
+						button : "Ok",
+					});
+					//	swal("", "${signup_is_done}");
+				</script>
+			</c:if>
+
+			<!-- All contact Info -->
+			<section class="all_contact_info">
+			<div class="container">
+				<div class="row contact_row">
+					<div class="col-sm-6 contact_info">
+						<h2>Devis</h2>
+						<p>Besoin d'un devis?</p>
+						<p>Vous n'avez qu'à remplir les informations nécessaires et
+							vous receverez un e-mail de la part de notre équipe.</p>
+
+					</div>
+					<div class="col-sm-6 contact_info send_message">
+						<h2>Remplissez le formulaire ci-dessous</h2>
+						<form action="#{request.contextPath}/devis/add" method="post">
+							<div class="form-group row">
+								<label for="Client" class="col-2 col-form-label">Nom</label>
+								<div class="col-10">
+									<input class="form-control" type="text" name="nom"
+										placeholder="Votre nom" id="Client" />
+								</div>
+							</div>
+							
+							<div class="form-group row">
+								<label for="Client" class="col-2 col-form-label">Numéro de téléphone</label>
+								<div class="col-10">
+									<input class="form-control" type="text" name="num_tel"
+										placeholder="Votre numéro de téléphone" id="" />
+								</div>
+							</div>
+
+							<div class="form-group row">
+								<label for="Email" class="col-2 col-form-label">E-mail</label>
+								<div class="col-10">
+									<input class="form-control" name="email" type="email"
+										placeholder="email@example.com" id="Email" />
+								</div>
+							</div>
+							<!--  <div class="form-group row has-success">
+      <label for="inputHorizontalSuccess" class="col-sm-2 col-form-label">E-mail</label>
+      <div class="col-sm-10">
+        <input type="email" class="form-control form-control-success" id="inputHorizontalSuccess" placeholder="email@example.com"/>
+        <div class="form-control-feedback">Success!</div>
+        <small class="form-text text-muted">email@example.com</small>
+      </div>
+    </div>-->
+
+							<div class="row form-group">
+								<div class="col col-md-3">
+									<label for="selectionFormation" class="col-2 col-form-label">Type
+										de formation</label>
+									<!--  <label for="select" class=" form-control-label">Veuillez choisir le type de formation souhaité...</label>-->
+								</div>
+
+								<div class="col-12 col-md-9">
+									<select name="type_formation" id="select" class="form-control">
+										<c:forEach var="type_formation" items="${type_formation_list}">
+										 <optgroup label="${type_formation.getTitre()}">
+											 <c:forEach var="sous_type_formation" items="${type_formation.getSous_type_formations()}">
+											<option value="${sous_type_formation.getId()}">${sous_type_formation.getTitre()} </option>
+											</c:forEach>
+											</optgroup>
+										</c:forEach>
+										<option value="-1">Autre</option>
+									</select>
+								</div>
+							</div>
+							
+							<div class="form-group row" id="other_type_formation" style="display:none;">
+								<label for="nbrStagiaires" class="col-2 col-form-label">Nom de type formation : 
+									</label>
+								<div class="col-10">
+									<input name="sous_type_formation_name" class="form-control"
+										type="text" id="nbrStagiaires" />
+								</div>
+							</div>
+
+							<div class="form-group row">
+								<label for="nbrStagiaires" class="col-2 col-form-label">Nombre
+									de stagiaires</label>
+								<div class="col-10">
+									<input name="nombre_stagiaire" class="form-control"
+										type="number" id="nbrStagiaires" />
+								</div>
+							</div>
+
+
+							<button type="submit" class="btn btn-warning">Envoyer</button>
+
+						</form>
+					</div>
+				</div>
+			</div>
+			</section>
+			<!-- End All contact Info -->
+		</div>
+
+
+
+		<script>
+		$(document).ready(function()
+				{	
+					$("#select").change(function()
+							{
+								if(this.value==-1)
+									{
+									 $("#other_type_formation").show();
+									}
+								else
+									{
+									$("#other_type_formation").hide();
+									}
+							})	
+				})	
+		</script>
+
+
+	</ui:define>
+	<link rel="stylesheet"
+		href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+
+</ui:composition>
+

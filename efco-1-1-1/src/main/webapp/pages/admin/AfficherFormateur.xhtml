@@ -1,0 +1,203 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui" xmlns:b="http://bootsfaces.net/ui"
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:th="http://www.thymeleaf.org"
+	template="/WEB-INF/templates/adminTemp/templateAdmin.xhtml">
+
+	<ui:define name="currentPageName">Formateurs</ui:define>
+	<ui:define name="pageContent">
+		
+		
+		<div class="modal" id="add_formateur_modal" tabindex="-1"
+			role="dialog">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title">Ajouter un formateur</h5>
+						<button type="button" class="close" data-dismiss="modal"
+							aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+
+						<form action="#{request.contextPath}/admin/add_former"
+							method="post" enctype="multipart/form-data">
+							<input type="hidden" name="${_csrf.parameterName}"
+								value="${_csrf.token}" />
+							<div class="form-group">
+								<label for="recipient-name" class="col-form-label">Nom:</label>
+								<input type="text" name="nom" id="" class="form-control" />
+							</div>
+							<div class="form-group">
+								<label for="recipient-name" class="col-form-label">Prénom:</label>
+								<input name="prenom" id="" class="form-control" />
+							</div>
+							<div class="form-group">
+								<label for="recipient-name" class="col-form-label">E-mail:</label>
+								<input type="text" name="email" class="form-control" />
+							</div>
+
+							<div class="form-group">
+								<label for="recipient-name" class="col-form-label">Adresse:</label>
+								<input type="text" name="adresse" id="" class="form-control" />
+							</div>
+
+							<div class="form-group">
+								<label for="recipient-name" class="col-form-label">Numéro de 
+									télèphone:</label> <input type="text" name="num_tel" id=""
+									class="form-control" />
+							</div>
+
+							<div class="form-group">
+								<label for="recipient-name" class="col-form-label">Mot
+									de passe </label> <input type="password" name="password" id=""
+									class="form-control" />
+							</div>
+
+							<button type="submit" class="btn btn-outline-primary">Enregistrer
+							</button>
+						</form>
+					</div>
+
+				</div>
+			</div>
+		</div>
+
+		<div class="modal" id="edit_user_modal" tabindex="-1" role="dialog">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title">Modifier</h5>
+						<button type="button" class="close" data-dismiss="modal"
+							aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<form action="#{request.contextPath}/admin/former/edit"
+							method="post" enctype="multipart/form-data">
+							<input type="hidden" name="${_csrf.parameterName}"
+								value="${_csrf.token}" />
+							<div class="form-group">
+								<label for="recipient-name" class="col-form-label">Nom:</label>
+								<input type="text" name="nom" id="nom_user_to_edit"
+									class="form-control" />
+							</div>
+							<div class="form-group">
+								<label for="recipient-name" class="col-form-label">Prénom:</label>
+								<input name="prenom" id="prenom_user_to_edit"
+									class="form-control" />
+							</div>
+							<div class="form-group">
+								<label for="recipient-name" class="col-form-label">E-mail:</label>
+								<input type="text" name="email"  id="email_user_to_edit" class="form-control" />
+							</div>
+
+							<div class="form-group">
+								<label for="recipient-name" class="col-form-label">Adresse:</label>
+								<input type="text" name="adresse" id="adresse_user_to_edit"
+									class="form-control" />
+							</div>
+
+							<div class="form-group">
+								<label for="recipient-name" class="col-form-label">Numéro de
+									télèphone:</label> <input type="number" name="num_tel"
+									id="num_tel_user_to_edit" class="form-control" />
+							</div>
+
+
+							<div class="form-group">
+								<label for="recipient-name" class="col-form-label">Mot
+									de passe </label> <input type="password" name="password" id=""
+									class="form-control" />
+							</div>
+
+
+
+							<input type="hidden" name="user_id" class="user_id_to_edit"
+								value="" />
+							<button type="submit" class="btn btn-outline-primary">Enregistrer
+							</button>
+						</form>
+					</div>
+
+				</div>
+			</div>
+		</div>
+
+
+
+		<table class="table table-condensed">
+			<thead>
+				<tr>
+					<th>Nom</th>
+					<th>Prénom</th>
+					<th>Adresse E-mail</th>
+					<th>Numéro De Téléphone</th>
+					<th>Adresse</th>
+					<th>Etat</th>
+					<th>Action</th>
+				</tr>
+			</thead>
+			<tbody>
+				<c:forEach var="former" items="${formers_list}">
+					<tr>
+						<td id="nom_value_${former.getId()}">${former.getNom()}</td>
+						<td id="prenom_value_${former.getId()}">${former.getPrenom()}</td>
+						<td id="email_value_${former.getId()}">${former.getEmail()}</td>
+						<td id="num_tel_user_value_${former.getId()}">${former.getNum_tel()}</td>
+						<td id="adresse_user_value_${former.getId()}">${former.getAdresse()}</td>
+
+						<c:if test="${former.getStatus()==0}">
+							<td>En attente</td>
+							<td><a
+								href="#{request.contextPath}/admin/user/verify/${former.getId()}"
+								class="btn btn-success">Valider</a> <a
+								href="#{request.contextPath}/user/delete/${former.getId()}"
+								class="btn btn-outline-danger">Annuler</a></td>
+						</c:if>
+						<c:if test="${former.getStatus()==1}">
+							<td>Approuvé</td>
+							<td><a
+								href="#{request.contextPath}/admin/user/delete/${former.getId()}"
+								class="btn btn-outline-danger">Supprimer</a> <a href="#"
+								data-id="${former.getId()}" class="btn btn-outline-warning edit_user">Modifier</a>
+							</td>
+						</c:if>
+						<c:if test="${former.getStatus()==-1}">
+							<td>Supprimer</td>
+							<td><a
+								href="#{request.contextPath}/admin/user/restore/${former.getId()}"
+								class="btn btn-success">Restauré</a> <a href="#"
+								data-id="${former.getId()}"   class="btn btn-outline-warning edit_user">Modifier</a>
+
+							</td>
+						</c:if>
+
+					</tr>
+				</c:forEach>
+			</tbody>
+		</table>
+
+		<!-- <div class="card-footer">
+			<button type="submit" class="btn btn-primary btn-sm">
+				<i class="fa fa-dot-circle-o"></i> Modifier
+			</button>
+			<button type="reset" class="btn btn-danger btn-sm">
+				<i class="fa fa-ban"></i> Annuler
+			</button>
+		</div>-->
+<div class="col-sm-12">
+			<button data-toggle="modal" class="btn btn-outline-success"
+				data-target="#add_formateur_modal">Ajouter</button>
+		</div>
+
+	</ui:define>
+</ui:composition>
